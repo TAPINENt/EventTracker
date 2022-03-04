@@ -1,0 +1,35 @@
+{% if user.is_authenticated %}
+    <nav class="navbar navbar-light" style="background-color: #f8f5f2;">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link active justify-content-start {% if active == 'Home' %} nav-link active {% endif %}" aria-current="page" href="#">Home</a>
+              </li>
+          </ul>
+        <div class="navbar justify-content-end">
+          <ul class="nav nav-pills ">
+            <li class="nav-item">
+                <a class="nav-link " aria-current="page" href="#">Log Out</a>
+              </li>
+          </ul>
+          <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link {% if active == 'Profile' %} nav-link active {% endif %}" aria-current="page" href="#">Profile</a>
+              </li>
+          </ul>
+      </div>
+    </nav>
+{% else %}
+    <nav class="navbar navbar-light justify-content-end" style="background-color: #f8f5f2;">
+        <ul class="nav nav-pills nav-fill justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link active justify-content-start {% if active == 'Home' %} nav-link active {% endif %}" aria-current="page" href="#">Home</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" style="color: #078080;" href="/login/auth0">Log In</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if active == 'Sign Up' %} nav-link active {% endif %}" href="#" style="color: #078080;">Sign Up</a>
+            </li>
+          </ul>
+      </nav>
+{% endif %}

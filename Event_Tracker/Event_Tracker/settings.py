@@ -31,12 +31,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'event',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +56,7 @@ ROOT_URLCONF = 'Event_Tracker.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['Event_Tracker/event/templates/event'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,3 +123,30 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#Auth Info
+# Eventtracker\settings.py
+SOCIAL_AUTH_TRAILING_SLASH = False  # Remove trailing slash from routes
+SOCIAL_AUTH_AUTH0_DOMAIN = 'dev-nrvj4wk4.us.auth0.com'
+SOCIAL_AUTH_AUTH0_KEY = 'nv0qZulilI6O7c5K3LAzOF6pZg7JeI7c'
+SOCIAL_AUTH_AUTH0_SECRET = 'D1mmMnVt-PTLiCJ98LYM5KRcnqo89vQaTfBtNnBUqkEJSgdnjeJQdYxWyGnuNKje'
+
+#Scope used by Auth0
+# Eventtracker\settings.py
+SOCIAL_AUTH_AUTH0_SCOPE = [
+    'openid',
+    'profile',
+    'email'
+]
+
+#Used for Django to authenticate in the backend and users to login 
+# Eventtracker\settings.py
+AUTHENTICATION_BACKENDS = {
+    'event.auth0backend.Auth0',
+    'django.contrib.auth.backends.ModelBackend'
+}
+
+#Configure the login, redirect login and redirect logout URLs 
+# Eventtracker\settings.py
+LOGIN_URL = '/login/auth0'
+LOGIN_REDIRECT_URL = '/home'
