@@ -1,7 +1,13 @@
+from django.contrib import admin
 from django.urls import path,include
+from rest_framework import routers
 from . import views
 
+router = routers.DefaultRouter()                   
+router.register(r'todos', views.TodoView, 'todo') 
+
 urlpatterns = [
+    path('api/', include(router.urls)),
     path("", views.start_page, name = "start-page"),
     path("home", views.home_page, name="home-page"),
     path("profile/", views.profile, name="profile"),

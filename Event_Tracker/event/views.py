@@ -4,6 +4,9 @@ from flask import request
 from django.contrib.auth import logout as django_logout
 from django.http import HttpResponseRedirect
 from decouple import config
+from .serializers import TodoSerializer 
+from rest_framework import viewsets      
+from .models import Todo  
 import json
 
 DEBUG= config('DEBUG') 
@@ -51,6 +54,10 @@ def profile(request):
     }
 
     return render(request,"event/profile.html",context)
+
+class TodoView(viewsets.ModelViewSet):  
+    serializer_class = TodoSerializer   
+    queryset = Todo.objects.all()     
 
 def logout(request):
     django_logout(request)
