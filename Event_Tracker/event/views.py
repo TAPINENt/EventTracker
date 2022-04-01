@@ -55,10 +55,6 @@ def profile(request):
 
     return render(request,"event/profile.html",context)
 
-class TodoView(viewsets.ModelViewSet):  
-    serializer_class = TodoSerializer   
-    queryset = Todo.objects.all()     
-
 def logout(request):
     django_logout(request)
 
@@ -67,3 +63,7 @@ def logout(request):
     return_to='http://127.0.0.1:8000'
 
     return HttpResponseRedirect(f"https://{domain}/v2/logout?client_id={client_id}&returnTo={return_to}")
+
+class TodoView(viewsets.ModelViewSet):  
+    serializer_class = TodoSerializer   
+    queryset = Todo.objects.all()     
