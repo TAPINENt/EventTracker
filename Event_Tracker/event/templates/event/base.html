@@ -11,21 +11,17 @@
     <script type="text/javascript" src="{% static 'event/js/bootstrap.min.js' %}"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css"/>
     <title>{% block title %}Event Plus{% endblock %}</title>
-    <script type="text/javascript"> 
+    <!-- <script type="text/javascript"> 
         window.onload = function() {
            if (window.jQuery) {
               alert('jQuery is loaded');
            } else {
               alert('jQuery is not loaded');}}
-        </script>
+        </script> -->
 </head>
 <body>
       {% block content %}
       {% endblock  %}
 </body>
-<Script type="text/javascript">
-    $('a[href$="#Modal"]').on( "click", function() {
-    $('#Modal').modal('show');
-    });
-  </script>
+
 </html>
