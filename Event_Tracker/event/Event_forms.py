@@ -1,10 +1,14 @@
 from django import forms
 from . import models
 
+from .widgets import DatePickerInput, TimePickerInput, DateTimePickerInput
+
 class NameForm(forms.Form):
-    Event_name = forms.CharField(label='Event Name', max_length=25)
-    Event_location = forms.CharField(label='Event Location',max_length=15)
-    Event_Org = forms.CharField(label='Organization',max_length=15)
+    erorr_css_class = 'error-field'
+    required_css_class = 'required-field'
+    Event_name = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Event Name"}),max_length=35)
+    Event_location = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Event Location"}),max_length=35)
+    Event_Org = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Event Organization"}),max_length=35)
     #Event_host = forms.ForeignKey(models.Event_Users, on_delete=forms.CASCADE)
-    Event_start_date = forms.DateTimeField()
-    Event_end_date = forms.DateTimeField()
+    Event_start_date = forms.DateTimeField(widget=DateTimePickerInput)
+    Event_end_date = forms.DateTimeField(widget=DateTimePickerInput)
