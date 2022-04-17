@@ -7,6 +7,7 @@ from decouple import config
 from .serializers import TodoSerializer 
 from rest_framework import viewsets      
 from .models import Todo  
+from .Event_forms import NameForm
 import json
 
 DEBUG= config('DEBUG') 
@@ -35,7 +36,26 @@ def home_page(request):
         'user_data':json.dumps(user_data,indent=4),
         'auth0_user':auth0_user
     }
-    return render(request, "event/home.html",context)
+
+    form_class = NameForm
+    # if this is a POST request we need to process the form data
+    form = form_class(request.POST or None)
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = NameForm(request.POST)
+        # check whether it's valid:
+        #if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            #return HttpResponseRedirect('/thanks/')
+
+    # if a GET (or any other method) we'll create a blank form
+    #else:
+       # form = NameForm()
+
+
+    return render(request, "event/home.html",{'form': form})
 
 def profile(request):
     user = request.user

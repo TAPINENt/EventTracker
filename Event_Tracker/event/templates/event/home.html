@@ -104,7 +104,7 @@
               <p>
                 It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
               </p>
-              <button type="button" class="read_more_btn" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">Read More</button>
+              <button type="button" class="read_more_btn" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">Create Event</button>
             </div>
           </div>
           <div class="solution_card">
@@ -298,7 +298,13 @@
           </button>
         </div>
         <div class="modal-body">
-          ...
+          <form action="/your-name/" method="post">
+         <!--   <label for="your_name">Your name: </label>
+            <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
+            <input type="submit" value="OK"> -->
+            {%csrf_token%}
+            {{form.as_p}}
+          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
