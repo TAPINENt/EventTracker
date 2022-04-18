@@ -7,7 +7,7 @@ from decouple import config
 from .serializers import TodoSerializer 
 from rest_framework import viewsets      
 from .models import Todo  
-from .Event_forms import NameForm
+from .Event_forms import NameForm,SocialForm
 import json
 
 DEBUG= config('DEBUG') 
@@ -31,18 +31,22 @@ def home_page(request):
         'name':user.first_name,
         'picture':auth0_user.extra_data['picture']
     }
+    print(user_data)
 
     context = {
         'user_data':json.dumps(user_data,indent=4),
         'auth0_user':auth0_user
     }
 
-    form_class = NameForm
+    form_class = SocialForm
+    # form_class1 = SocialForm
     # if this is a POST request we need to process the form data
     form = form_class(request.POST or None)
+    # form1 = form_class1(request.POST or None)
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = NameForm(request.POST)
+        # form1 = SocialForm(request.POST)
         # check whether it's valid:
         #if form.is_valid():
             # process the data in form.cleaned_data as required

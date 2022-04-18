@@ -2531,7 +2531,7 @@ var animating; //flag to prevent quick multi-click glitches
     isAnimated: false,
     rootElement: 'body',
     // give the choice to place backdrop under different elements
-    clickCallback: null
+    clickCallback: true
   };
   const DefaultType$7 = {
     className: 'string',

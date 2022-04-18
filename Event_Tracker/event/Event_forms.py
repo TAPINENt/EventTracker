@@ -12,3 +12,9 @@ class NameForm(forms.Form):
     #Event_host = forms.ForeignKey(models.Event_Users, on_delete=forms.CASCADE)
     Event_start_date = forms.DateTimeField(widget=DateTimePickerInput)
     Event_end_date = forms.DateTimeField(widget=DateTimePickerInput)
+
+class SocialForm(forms.Form):
+    twitterSocial = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Twitter"}),max_length=35)
+    instagramSocial = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Instagram"}),max_length=35)
+    snapSocial = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Snap"}),max_length=35)
+
