@@ -306,18 +306,22 @@
           <form id="msform" action="">
             <!-- progressbar -->
             <ul id="progressbar">
-              <li class="active">Account Setup</li>
-              <li>Social Profiles</li>
-              <li>Personal Details</li>
+              <li class="active">Event Info</li>
+              <li>Host Info</li>
+              <li>Socials Info</li>
             </ul>
             <!-- fieldsets -->
             <div id="fieldset-wrapper">
               <fieldset>
-                <h2 class="step-title">Create your account</h2>
+                <h2 class="step-title">Create your Event</h2>
                 <h3 class="step-subtitle">This is step 1</h3>
-                <input type="text" name="email" placeholder="Email" />
-                <input type="password" name="pass" placeholder="Password" />
-                <input type="password" name="cpass" placeholder="Confirm Password" />
+                <input type="text" name="event_name" placeholder="Envent Name"  required/>
+                <input type="text" name="event_loc" placeholder="Location" />
+                <input type="text" name="event_org" placeholder="Organization" />
+                <p>Start Time</p>
+                <input type="datetime-local" name="event_start" placeholder="Start Time" required/>
+                <p>End Time</p>
+                <input type="datetime-local" name="event_End" placeholder="End Time" required/>
                 <div class="button-wrapper">
                   <input type="button" name="next" class="next action-button" value="Next" />
                 </div>

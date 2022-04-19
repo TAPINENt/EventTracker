@@ -5867,7 +5867,7 @@ a.close.disabled {
   border-bottom: 1px solid #dee2e6;
   border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
-  background-color: #0000;
+  background-color: #95c1ff;
 }
 
 .modal-header .close {
@@ -5887,7 +5887,7 @@ a.close.disabled {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   padding: 1rem;
-  background-color: #0000;
+  background-color: #ffdeaf;
 }
 
 .modal-footer {
