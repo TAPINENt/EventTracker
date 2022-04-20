@@ -303,7 +303,8 @@
             <!--
               THIS IS A TEST THAT I AM DOING
             -->
-          <form id="msform" action="">
+          <form id="msform" action="{% url 'home-save-form' %}" method="post">
+            {% csrf_token %}
             <!-- progressbar -->
             <ul id="progressbar">
               <li class="active">Event Info</li>
@@ -316,12 +317,12 @@
                 <h2 class="step-title">Create your Event</h2>
                 <br>
                 <input type="text" name="event_name" placeholder="Envent Name"  required/>
-                <input type="text" name="event_loc" placeholder="Location" />
+                <input type="text" name="event_location" placeholder="Location" />
                 <input type="text" name="event_org" placeholder="Organization" />
                 <p>Start Time</p>
-                <input type="datetime-local" name="event_start" placeholder="Start Time" required/>
+                <input type="datetime-local" name="event_start_date" placeholder="Start Time" required/>
                 <p>End Time</p>
-                <input type="datetime-local" name="event_End" placeholder="End Time" required/>
+                <input type="datetime-local" name="event_end_date" placeholder="End Time" required/>
                 <div class="button-wrapper">
                   <input type="button" name="next" class="next action-button" value="Next" />
                 </div>
@@ -345,7 +346,7 @@
                 <input type="text" name="twitter" placeholder="Twitter" />
                 <input type="text" name="instagram" placeholder="Instagram" />
                 <input type="text" name="facebook" placeholder="Facebook" />
-                <textarea name="bio" placeholder="Bio"></textarea>
+                <textarea name="user_bio" placeholder="Bio"></textarea>
                 <div class="button-wrapper">
                   <input type="button" name="previous" class="previous action-button" value="Previous" />
                   <input type="submit" name="submit" class="submit next action-button" value="Submit" />
@@ -375,8 +376,6 @@
               </div>
             </div>
           </div>
-
-
           <script>
             /**
  * Multi-step form animations.
