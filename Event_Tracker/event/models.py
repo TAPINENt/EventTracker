@@ -10,42 +10,50 @@ class Todo(models.Model):
    def _str_(self):
      return self.title
 
+class Event_Host(models.Model):
+  host_id = models.OneToOneField(User, on_delete=models.CASCADE)
+  host_fname = models.CharField(max_length=30,null=True)
+  host_lname = models.CharField(max_length=30,null=True)
+
+  def _str_(self):
+    return self.Username
+
 
 class Event_Users(models.Model):
-  User_id = models.IntegerField(primary_key=True)
-  User_Fname = models.CharField(max_length=15)
-  User_Lname = models.CharField(max_length=15)
-  Username = models.CharField(max_length=15)
-  Social_id = models.CharField(max_length=15)
-  Bio = models.CharField(max_length=255)
+  user_id = models.IntegerField(primary_key=True)
+  user_fname = models.CharField(max_length=30,null=True)
+  user_fname = models.CharField(max_length=30,null=True)
+  username = models.CharField(max_length=30,null=True)
 
   def _str_(self):
     return self.Username
 
 
 class Event_Socials(models.Model):
-  Social_id = models.IntegerField(primary_key=True)
-  User_id = models.ForeignKey(Event_Users, on_delete=models.CASCADE)
-  twitter = models.CharField(max_length=15)
-  instagram = models.CharField(max_length=15)
-  snapchat = models.CharField(max_length=15)
-  cashapp = models.CharField(max_length=15)
-  Event_host = models.BooleanField(default=False)
-  Event_performer = models.BooleanField(default=False)
-  Event_guest = models.CharField(max_length=15)
+  social_id = models.IntegerField(primary_key=True)
+  user_id = models.ForeignKey(Event_Users, on_delete=models.CASCADE,null=True)
+  host_id = models.ForeignKey(Event_Host, on_delete=models.CASCADE,null=True)
+  twitter = models.CharField(max_length=30,null=True)
+  instagram = models.CharField(max_length=30,null=True)
+  snapchat = models.CharField(max_length=30,null=True)
+  cashapp = models.CharField(max_length=30,null=True)
+  user_bio = models.CharField(max_length=255,null=True)
+  event_host = models.BooleanField(default=False)
+  event_performer = models.BooleanField(default=False)
+  event_guest = models.BooleanField(default=False)
 
 class Event(models.Model):
-  Event_id = models.IntegerField(primary_key=True)
-  Event_code = models.IntegerField()
-  Event_name = models.CharField(max_length=25)
-  Event_location = models.CharField(max_length=15)
-  Event_Org = models.CharField(max_length=15)
-  Event_host = models.ForeignKey(Event_Users, on_delete=models.CASCADE)
-  Event_start_date = models.DateTimeField()
-  Event_end_date = models.DateTimeField()
-  Event_image = models.ImageField()
+  event_id = models.IntegerField(primary_key=True)
+  event_code = models.IntegerField()
+  event_name = models.CharField(max_length=55,null=True)
+  event_location = models.CharField(max_length=30,null=True)
+  event_org = models.CharField(max_length=30,null=True)
+  event_host = models.ForeignKey(Event_Users, on_delete=models.CASCADE)
+  event_start_date = models.DateTimeField()
+  event_end_date = models.DateTimeField()
+  event_image = models.ImageField()
  
 
 class Event_Attendee(models.Model):
-  Event_id = models.ForeignKey(Event, on_delete=models.CASCADE,max_length=12)
-  User_id = models.ForeignKey(Event_Users, on_delete=models.CASCADE, max_length=12)
+  event_id = models.ForeignKey(Event, on_delete=models.CASCADE,max_length=12)
+  user_id = models.ForeignKey(Event_Users, on_delete=models.CASCADE, max_length=12)
