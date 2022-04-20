@@ -360,6 +360,22 @@
             </div>
           </form>
 
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-group">
+                {% if messages %}
+                    {% for message in messages %}
+                      {% if message.tags == 'success' %}
+                        <div class="alert alert-success">{{ message }}</div>
+                      {% elif message.tags == 'error' %}
+                        <div class="alert alert-danger">{{ message }}</div>
+                      {% endif %}
+                    {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
 
           <script>
             /**
@@ -497,9 +513,9 @@ function scroll_to_progress_bar_top() {
 }
 
 // ADDED TO STOP FORM SUBMISSION ON CODEPEN. REMOVE IN YOUR VERSION.
-jQuery(".submit").click(function () {
+/*jQuery(".submit").click(function () {
 	event.preventDefault();
-});
+});*/
 
 
           </script>

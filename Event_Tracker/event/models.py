@@ -14,6 +14,7 @@ class Event_Host(models.Model):
   host_id = models.OneToOneField(User, on_delete=models.CASCADE)
   host_fname = models.CharField(max_length=30,null=True)
   host_lname = models.CharField(max_length=30,null=True)
+  objects=models.Manager()
 
   def _str_(self):
     return self.Username
@@ -22,8 +23,9 @@ class Event_Host(models.Model):
 class Event_Users(models.Model):
   user_id = models.IntegerField(primary_key=True)
   user_fname = models.CharField(max_length=30,null=True)
-  user_fname = models.CharField(max_length=30,null=True)
+  user_lname = models.CharField(max_length=30,null=True)
   username = models.CharField(max_length=30,null=True)
+  objects=models.Manager()
 
   def _str_(self):
     return self.Username
@@ -36,11 +38,14 @@ class Event_Socials(models.Model):
   twitter = models.CharField(max_length=30,null=True)
   instagram = models.CharField(max_length=30,null=True)
   snapchat = models.CharField(max_length=30,null=True)
-  cashapp = models.CharField(max_length=30,null=True)
-  user_bio = models.CharField(max_length=255,null=True)
+  Facebook = models.CharField(max_length=30,null=True)
+  email = models.CharField(max_length=30,null=True)
+  phone = models.IntegerField(null=True)
+  user_bio = models.TextField(max_length=255,null=True)
   event_host = models.BooleanField(default=False)
   event_performer = models.BooleanField(default=False)
   event_guest = models.BooleanField(default=False)
+  objects=models.Manager()
 
 class Event(models.Model):
   event_id = models.IntegerField(primary_key=True)
@@ -52,6 +57,7 @@ class Event(models.Model):
   event_start_date = models.DateTimeField()
   event_end_date = models.DateTimeField()
   event_image = models.ImageField()
+  objects=models.Manager()
  
 
 class Event_Attendee(models.Model):
