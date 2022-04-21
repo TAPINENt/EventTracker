@@ -10,14 +10,6 @@ class Todo(models.Model):
    def _str_(self):
      return self.title
 
-class Event_Host(models.Model):
-  host_id = models.OneToOneField(User, on_delete=models.CASCADE)
-  host_fname = models.CharField(max_length=30,null=True)
-  host_lname = models.CharField(max_length=30,null=True)
-  objects=models.Manager()
-
-  def _str_(self):
-    return self.Username
 
 
 class Event_Users(models.Model):
@@ -34,7 +26,6 @@ class Event_Users(models.Model):
 class Event_Socials(models.Model):
   social_id = models.IntegerField(primary_key=True)
   user_id = models.ForeignKey(Event_Users, on_delete=models.CASCADE,null=True)
-  host_id = models.ForeignKey(Event_Host, on_delete=models.CASCADE,null=True)
   twitter = models.CharField(max_length=30,null=True)
   instagram = models.CharField(max_length=30,null=True)
   snapchat = models.CharField(max_length=30,null=True)
@@ -42,10 +33,19 @@ class Event_Socials(models.Model):
   email = models.CharField(max_length=30,null=True)
   phone = models.IntegerField(null=True)
   user_bio = models.TextField(max_length=255,null=True)
-  event_host = models.BooleanField(default=False)
-  event_performer = models.BooleanField(default=False)
-  event_guest = models.BooleanField(default=False)
+  is_event_host = models.BooleanField(default=False)
+  is_event_performer = models.BooleanField(default=False)
+  is_event_guest = models.BooleanField(default=False)
   objects=models.Manager()
+
+
+class Event_Host(models.Model):
+  host_id = models.ForeignKey(Event_Users, on_delete=models.CASCADE,null=True)
+  social_id = models.ForeignKey(Event_Socials, on_delete=models.CASCADE,null=True)
+  objects=models.Manager()
+
+  def _str_(self):
+    return self.Username
 
 class Event(models.Model):
   event_id = models.IntegerField(primary_key=True)
