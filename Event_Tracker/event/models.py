@@ -40,8 +40,8 @@ class Event_Socials(models.Model):
 
 
 class Event_Host(models.Model):
-  host_id = models.ForeignKey(Event_Users, on_delete=models.CASCADE,null=True)
-  social_id = models.ForeignKey(Event_Socials, on_delete=models.CASCADE,null=True)
+  host = models.ForeignKey(Event_Users, on_delete=models.CASCADE,null=True)
+  social = models.ForeignKey(Event_Socials, on_delete=models.CASCADE,null=True)
   objects=models.Manager()
 
   def _str_(self):
