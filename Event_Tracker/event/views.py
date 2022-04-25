@@ -86,7 +86,7 @@ def home_save_form(request):
         # try:
         event_user=Event_Users(user_fname=user_fname, user_lname=user_lname,username=username)
         event_user.save()
-        print("this is evnt users",Event_Users.objects.get(Event_Users.user_id))
+        print("this is evnt users",event_user.pk)
         social_media=Event_Socials(twitter=twitter,Facebook=Facebook,instagram=instagram,user_bio=user_bio,phone=phone,email=email)
         social_media.save()
         event_host=Event_Host(host_id=event_user.user_id, social_id=social_media.social_id)

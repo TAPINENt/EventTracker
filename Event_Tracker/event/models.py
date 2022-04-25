@@ -1,6 +1,7 @@
 #from tkinter import CASCADE
 from django.db import models
 from django.contrib.auth.models import User
+import uuid
 
 class Todo(models.Model):
    title = models.CharField(max_length=100)
@@ -13,7 +14,8 @@ class Todo(models.Model):
 
 
 class Event_Users(models.Model):
-  user_id = models.IntegerField(primary_key=True)
+  user_id = models.AutoField(primary_key=True)
+  # models.Autofield(primary_key=True, editable=False, max_length=10)
   user_fname = models.CharField(max_length=30,null=True)
   user_lname = models.CharField(max_length=30,null=True)
   username = models.CharField(max_length=30,null=True)
@@ -24,7 +26,7 @@ class Event_Users(models.Model):
 
 
 class Event_Socials(models.Model):
-  social_id = models.IntegerField(primary_key=True)
+  social_id = models.AutoField(primary_key=True)
   user_id = models.ForeignKey(Event_Users, on_delete=models.CASCADE,null=True)
   twitter = models.CharField(max_length=30,null=True)
   instagram = models.CharField(max_length=30,null=True)
@@ -48,8 +50,9 @@ class Event_Host(models.Model):
     return self.Username
 
 class Event(models.Model):
-  event_id = models.IntegerField(primary_key=True)
-  event_code = models.IntegerField()
+  event_id = models.AutoField(primary_key=True)
+  event_code = models.UUIDField(default = uuid.uuid4,
+         editable = False)
   event_name = models.CharField(max_length=55,null=True)
   event_location = models.CharField(max_length=30,null=True)
   event_org = models.CharField(max_length=30,null=True)
