@@ -303,7 +303,7 @@
             <!--
               THIS IS A TEST THAT I AM DOING
             -->
-          <form id="msform" action="{% url 'home-save-form' %}" method="post">
+          <form id="msform" action="{% url 'home-save-form' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <!-- progressbar -->
             <ul id="progressbar">
@@ -319,6 +319,8 @@
                 <input type="text" name="event_name" placeholder="Envent Name"  required/>
                 <input type="text" name="event_location" placeholder="Location" />
                 <input type="text" name="event_org" placeholder="Organization" />
+                <p>Event Image</p>
+                <input type="file" name="event_img">
                 <p>Start Time</p>
                 <input type="datetime-local" name="event_start_date" placeholder="Start Time" required/>
                 <p>End Time</p>

@@ -41,14 +41,6 @@ class Event_Socials(models.Model):
   objects=models.Manager()
 
 
-class Event_Host(models.Model):
-  host = models.ForeignKey(Event_Users, on_delete=models.CASCADE,null=True)
-  social = models.ForeignKey(Event_Socials, on_delete=models.CASCADE,null=True)
-  objects=models.Manager()
-
-  def _str_(self):
-    return self.Username
-
 class Event(models.Model):
   event_id = models.AutoField(primary_key=True)
   event_code = models.UUIDField(default = uuid.uuid4,
@@ -56,11 +48,20 @@ class Event(models.Model):
   event_name = models.CharField(max_length=55,null=True)
   event_location = models.CharField(max_length=30,null=True)
   event_org = models.CharField(max_length=30,null=True)
-  event_host = models.ForeignKey(Event_Users, on_delete=models.CASCADE)
+  host = models.ForeignKey(Event_Users, on_delete=models.CASCADE)
   event_start_date = models.DateTimeField()
   event_end_date = models.DateTimeField()
   event_image = models.ImageField()
   objects=models.Manager()
+
+class Event_Host(models.Model):
+  host = models.ForeignKey(Event_Users, on_delete=models.CASCADE,null=True)
+  social = models.ForeignKey(Event_Socials, on_delete=models.CASCADE,null=True)
+  event = models.ForeignKey(Event, on_delete=models.CASCADE,null=True)
+  objects=models.Manager()
+
+  def _str_(self):
+    return self.Username
  
 
 class Event_Attendee(models.Model):

@@ -1,6 +1,7 @@
 from pyexpat.errors import messages
 from django.contrib import messages
 from django.shortcuts import redirect, render
+from django.template import context
 from django.test import client
 from django.urls import reverse
 from flask import request
@@ -11,6 +12,7 @@ from .serializers import TodoSerializer
 from rest_framework import viewsets      
 from .models import Event, Event_Socials, Event_Users, Event_Host, Todo  
 from .Event_forms import NameForm,SocialForm
+from django.core.files.storage import FileSystemStorage
 import json
 
 DEBUG= config('DEBUG') 
@@ -66,33 +68,39 @@ def home_page(request):
 
 
 def home_save_form(request):
+    context = {}
     if request.method!="POST":
         return HttpResponseRedirect(reverse("home-page"))
     else:
-        event_name=request.POST.get("event_name")
-        event_location=request.POST.get("event_location")
-        event_org=request.POST.get("event_org")
-        event_start_date=request.POST.get("event_start_date")
-        event_end_date=request.POST.get("event_end_date")
-        twitter=request.POST.get("twitter")
-        instagram=request.POST.get("instagram")
-        Facebook=request.POST.get("Facebook")
-        user_bio=request.POST.get("user_bio")
-        user_fname=request.POST.get("fname")
-        user_lname=request.POST.get("lname")
-        username=request.POST.get("username")
-        phone=request.POST.get("phone")
-        email=request.POST.get("email")
+        event_name = request.POST.get("event_name")
+        event_location = request.POST.get("event_location")
+        event_org = request.POST.get("event_org")
+        event_img = request.FILES['event_img']
+        fs = FileSystemStorage()
+        media_name = fs.save(event_img.name, event_img)
+        context['media_url'] = fs.url(media_name)
+        print(event_img.size)
+        event_start_date = request.POST.get("event_start_date")
+        event_end_date = request.POST.get("event_end_date")
+        twitter = request.POST.get("twitter")
+        instagram = request.POST.get("instagram")
+        Facebook = request.POST.get("Facebook")
+        user_bio = request.POST.get("user_bio")
+        user_fname = request.POST.get("fname")
+        user_lname = request.POST.get("lname")
+        username = request.POST.get("username")
+        phone = request.POST.get("phone")
+        email = request.POST.get("email")
         # try:
         event_user=Event_Users(user_fname=user_fname, user_lname=user_lname,username=username)
         event_user.save()
         print("this is evnt users",event_user.pk)
         social_media=Event_Socials(twitter=twitter,Facebook=Facebook,instagram=instagram,user_bio=user_bio,phone=phone,email=email)
         social_media.save()
-        event_host=Event_Host(host_id=event_user.user_id, social_id=social_media.social_id)
-        event_host.save()
-        event_create=Event(event_name=event_name, event_location=event_location, event_org=event_org,event_start_date=event_start_date,event_end_date=event_end_date,event_code=23214,event_host=Event_Users.objects.get(user_id=1))
+        event_create=Event(event_name=event_name, event_location=event_location, event_org=event_org,event_start_date=event_start_date, event_end_date=event_end_date, event_image = fs.url(media_name), host_id=event_user.pk)
         event_create.save()
+        event_host=Event_Host(host_id=event_user.user_id, social_id=social_media.social_id,event_id=event_create.pk)
+        event_host.save()
         messages.success(request, "Data Save Successfully")
         return HttpResponseRedirect(reverse("home-page"))
         # except:
