@@ -1,6 +1,10 @@
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path,include
 from rest_framework import routers
+from tomlkit import document
+from django.conf import settings #image upload
+from django.conf.urls.static import static
 from . import views
 
 router = routers.DefaultRouter()                   
@@ -17,3 +21,6 @@ urlpatterns = [
     # path("login", views.login_page, name="login-page"),
     # path("signup", views.login_page, name="login-page"),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -2,6 +2,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import uuid
+import shortuuid
 
 class Todo(models.Model):
    title = models.CharField(max_length=100)
@@ -43,8 +44,12 @@ class Event_Socials(models.Model):
 
 class Event(models.Model):
   event_id = models.AutoField(primary_key=True)
-  event_code = models.UUIDField(default = uuid.uuid4,
+  u = uuid.uuid4()
+  s = shortuuid.encode(u)
+  event_code = models.UUIDField(default = u,
          editable = False)
+  short = s[:7]
+  event_code_short = models.CharField(max_length=10, default=short)
   event_name = models.CharField(max_length=55,null=True)
   event_location = models.CharField(max_length=30,null=True)
   event_org = models.CharField(max_length=30,null=True)
