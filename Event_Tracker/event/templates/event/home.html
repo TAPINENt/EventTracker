@@ -316,17 +316,18 @@
               <fieldset>
                 <h2 class="step-title">Create your Event</h2>
                 <br>
-                <input type="text" name="event_name" placeholder="Envent Name"  required/>
+                <input type="text" id="form_check" name="event_name" placeholder="Envent Name" required/>
                 <input type="text" name="event_location" placeholder="Location" />
                 <input type="text" name="event_org" placeholder="Organization" />
                 <p>Event Image</p>
                 <input type="file" name="event_img">
                 <p>Start Time</p>
-                <input type="datetime-local" name="event_start_date" placeholder="Start Time" required/>
+                <input type="datetime-local" id="form_check" name="event_start_date" placeholder="Start Time" required/>
                 <p>End Time</p>
-                <input type="datetime-local" name="event_end_date" placeholder="End Time" required/>
+                <input type="datetime-local" id="form_check" name="event_end_date" placeholder="End Time" required/>
                 <div class="button-wrapper">
-                  <input type="button" name="next" class="next action-button" value="Next" />
+                  <!-- <input type="button" name="next" class="next action-button" value="Next" /> -->
+                  <button onclick = "checkValue()" name="next" class="next action-button">Next </button>
                 </div>
               </fieldset>
               <fieldset>
@@ -334,12 +335,13 @@
                 <br>
                 <input type="text" name="fname" placeholder="First Name" />
                 <input type="text" name="lname" placeholder="Last Name" />
-                <input type="text" name="username" placeholder="Username" />
+                <input type="text" id="form_check" name="username" placeholder="Username" required/>
                 <input type="text" name="phone" placeholder="Phone" />
-                <input type="text" name="email" placeholder="email" />
+                <input type="text" id="form_check" name="email" placeholder="email" required/>
                 <div class="button-wrapper">
                   <input type="button" name="previous" class="previous action-button" value="Previous" />
-                  <input type="button" name="next" class="next action-button" value="Next" />
+                  <button onclick = "checkValue()" name="next" class="next action-button">Next </button>
+                  <!-- <input type="button" onclick = "checkValue()" name="next" class="next action-button" value="Next" /> -->
                 </div>
               </fieldset>
               <fieldset>
@@ -378,7 +380,17 @@
               </div>
             </div>
           </div>
-          <script>
+<script>
+
+function checkValue() {
+    	var name = document.getElementById("form_check");
+      var next = true; 
+        if(name.value === "") {
+          next = false;
+          var att = document.createAttribute("required");
+          name.setAttributeNode(att);
+        }
+if(next === true){
             /**
  * Multi-step form animations.
  */
@@ -390,6 +402,7 @@ var animating; // flag to prevent quick multi-click glitches
  * On clicking "Next" button, animate to next fieldset.
  */
 jQuery(".button-wrapper .next").click(function () {
+  
 	if (animating) {
 		return false;
 	}
@@ -446,6 +459,8 @@ jQuery(".button-wrapper .next").click(function () {
 		}
 	);
 });
+}
+}
 
 /**
  * On clicking "Previous" button, animate back to previous fieldset.
@@ -519,7 +534,18 @@ function scroll_to_progress_bar_top() {
 });*/
 
 
-          </script>
+function checkValue() {
+    	var name = document.getElementById("form_check");
+      var next = true; 
+        if(name.value === "") {
+          next = false;
+          var att = document.createAttribute("required");
+          name.setAttributeNode(att);
+        }
+    }
+
+
+</script>
 
 
           <!--
