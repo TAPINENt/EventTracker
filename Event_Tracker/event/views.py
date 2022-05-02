@@ -1,3 +1,4 @@
+from pickle import FALSE
 from pyexpat.errors import messages
 from django.contrib import messages
 from django.shortcuts import redirect, render
@@ -64,7 +65,7 @@ def home_page(request):
        # form = NameForm()
 
 
-    return render(request, "event/home.html",{'form': form})
+    return render(request, "event/home.html",context,{'form': form})
 
 
 def home_save_form(request):
@@ -75,11 +76,12 @@ def home_save_form(request):
         event_name = request.POST.get("event_name")
         event_location = request.POST.get("event_location")
         event_org = request.POST.get("event_org")
-        event_img = request.FILES['event_img']
-        fs = FileSystemStorage()
-        media_name = fs.save(event_img.name, event_img)
-        context['media_url'] = fs.url(media_name)
-        print(event_img.size)
+        event_img = request.FILES['event_img'] if 'event_img' in request.FILES else False
+        if event_img != False:
+            fs = FileSystemStorage()
+            media_name = fs.save(event_img.name, event_img)
+            context['media_url'] = fs.url(media_name)
+            print(event_img.size)
         event_start_date = request.POST.get("event_start_date")
         event_end_date = request.POST.get("event_end_date")
         twitter = request.POST.get("twitter")
@@ -97,7 +99,7 @@ def home_save_form(request):
         print("this is evnt users",event_user.pk)
         social_media=Event_Socials(twitter=twitter,Facebook=Facebook,instagram=instagram,user_bio=user_bio,phone=phone,email=email)
         social_media.save()
-        event_create=Event(event_name=event_name, event_location=event_location, event_org=event_org,event_start_date=event_start_date, event_end_date=event_end_date, event_image = fs.url(media_name), host_id=event_user.pk)
+        event_create=Event(event_name=event_name, event_location=event_location, event_org=event_org,event_start_date=event_start_date, event_end_date=event_end_date, event_image = fs.url(media_name) if event_img != False else "", host_id=event_user.pk)
         event_create.save()
         event_host=Event_Host(host_id=event_user.user_id, social_id=social_media.social_id,event_id=event_create.pk)
         event_host.save()
