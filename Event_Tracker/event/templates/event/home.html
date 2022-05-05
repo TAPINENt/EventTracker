@@ -319,7 +319,7 @@
                 <input type="text" name="event_location" placeholder="Location" />
                 <input type="text" name="event_org" placeholder="Organization" />
                 <p>Event Image</p>
-                <input type="file" name="event_img">
+                <input type="file" name="event_img" accept="image/gif, image/jpeg, image/png "/>
                 <p>Start Time</p>
                 <input type="datetime-local" id="form_check" name="event_start_date" placeholder="Start Time" required/>
                 <p>End Time</p>
@@ -381,15 +381,17 @@
           </div>
 <script>
 
-function checkValue() {
-    	var name = document.getElementById("form_check");
-      var next = true; 
-        if(name.value === "") {
-          next = false;
-          var att = document.createAttribute("required");
-          name.setAttributeNode(att);
-        }
-if(next === true){
+// function checkValue() {
+//     	var name = document.getElementById("form_check");
+//       var next = true; 
+//         if(name.value === "") {
+//           next = false;
+//           var att = document.createAttribute("required");
+//           name.setAttributeNode(att);
+//         }
+// if(next === true){
+// }
+// }
             /**
  * Multi-step form animations.
  */
@@ -397,11 +399,23 @@ var current_fs, next_fs, previous_fs; // fieldsets
 var left, opacity, scale; // fieldset properties which we will animate
 var animating; // flag to prevent quick multi-click glitches
 
+
 /**
  * On clicking "Next" button, animate to next fieldset.
  */
+
 jQuery(".button-wrapper .next").click(function () {
-  
+
+  var name = document.getElementById("form_check");
+  var next = true;
+
+  if(name.value === "") {
+  next = false;
+  var att = document.createAttribute("required");
+  name.setAttributeNode(att);
+  }
+  else{
+
 	if (animating) {
 		return false;
 	}
@@ -409,6 +423,7 @@ jQuery(".button-wrapper .next").click(function () {
 
 	current_fs = jQuery(this).closest("fieldset");
 	next_fs = jQuery(this).closest("fieldset").next("fieldset");
+
 
 	// activate next step on progressbar using the index of next_fs
 	jQuery("#progressbar li")
@@ -456,10 +471,15 @@ jQuery(".button-wrapper .next").click(function () {
 			// this comes from the custom easing plugin
 			easing: "easeInOutBack"
 		}
-	);
-});
+	)};
+// else{
+//   var att = document.createAttribute("required");
+//   name.setAttributeNode(att);
+// }
 }
-}
+);
+
+
 
 /**
  * On clicking "Previous" button, animate back to previous fieldset.

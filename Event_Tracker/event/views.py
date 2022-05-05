@@ -14,6 +14,7 @@ from rest_framework import viewsets
 from .models import Event, Event_Socials, Event_Users, Event_Host, Todo  
 from .Event_forms import NameForm,SocialForm
 from django.core.files.storage import FileSystemStorage
+from django.core.exceptions import ValidationError
 import json
 
 DEBUG= config('DEBUG') 
