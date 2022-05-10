@@ -105,7 +105,7 @@ def home_save_form(request):
         event_host=Event_Host(host_id=event_user.user_id, social_id=social_media.social_id,event_id=event_create.pk)
         event_host.save()
         messages.success(request, "Data Save Successfully")
-        return HttpResponseRedirect(reverse("create"))
+        return HttpResponseRedirect(reverse("home-page"))
         # except:
         #     messages.error(request,"Error in Saving Data")
         #     return HttpResponseRedirect(reverse("home-page"))

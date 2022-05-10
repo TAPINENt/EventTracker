@@ -34,7 +34,7 @@ class Event_Socials(models.Model):
   snapchat = models.CharField(max_length=30,null=True)
   Facebook = models.CharField(max_length=30,null=True)
   email = models.CharField(max_length=30,null=True)
-  phone = models.IntegerField(null=True)
+  phone = models.CharField(max_length=10, null=True)
   user_bio = models.TextField(max_length=255,null=True)
   is_event_host = models.BooleanField(default=False)
   is_event_performer = models.BooleanField(default=False)

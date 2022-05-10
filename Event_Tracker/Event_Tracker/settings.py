@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'social_django',
     'corsheaders',
     'rest_framework',
+    'phonenumber_field'
 ]
 
 MIDDLEWARE = [

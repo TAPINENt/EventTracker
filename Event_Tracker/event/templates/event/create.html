@@ -2,6 +2,23 @@
 {% load static %}
 {% block title %}Event Home{% endblock %}
 {% block content %}
+<!-- NAV BAR    -->
+
+<nav class="navbar navbar-dark">
+  <div class="container-fluid">
+      <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+      <span class="navbar-toggler-icon"></span>
+    </button> -->
+
+  <a class="navbar-brand" href="/home">
+    <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/logo_white.png" width="30" height="30" alt="logo">
+    Go Back
+  </a>
+  </div>
+</nav>
+
+
+
 <!-- multistep form -->
 <form id="msform" action="{% url 'home-save-form' %}" method="post" enctype="multipart/form-data">
 	{% csrf_token %}
@@ -35,7 +52,7 @@
 		<input type="text" name="fname" placeholder="First Name" />
 		<input type="text" name="lname" placeholder="Last Name" />
 		<input type="text" id="form_check" name="username" placeholder="Username" required/>
-		<input type="text" name="phone" placeholder="Phone" />
+		<input type="number" name="phone" placeholder="Phone" />
 		<input type="text" id="form_check" name="email" placeholder="email" required/>
 		<div class="button-wrapper">
 			<input type="button" name="previous" class="previous action-button" value="Previous" />
