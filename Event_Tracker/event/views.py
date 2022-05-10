@@ -87,7 +87,7 @@ def home_save_form(request):
         event_end_date = request.POST.get("event_end_date")
         twitter = request.POST.get("twitter")
         instagram = request.POST.get("instagram")
-        Facebook = request.POST.get("Facebook")
+        Facebook = request.POST.get("facebook")
         user_bio = request.POST.get("user_bio")
         user_fname = request.POST.get("fname")
         user_lname = request.POST.get("lname")
@@ -105,7 +105,7 @@ def home_save_form(request):
         event_host=Event_Host(host_id=event_user.user_id, social_id=social_media.social_id,event_id=event_create.pk)
         event_host.save()
         messages.success(request, "Data Save Successfully")
-        return HttpResponseRedirect(reverse("home-page"))
+        return HttpResponseRedirect(reverse("create"))
         # except:
         #     messages.error(request,"Error in Saving Data")
         #     return HttpResponseRedirect(reverse("home-page"))
@@ -128,6 +128,19 @@ def profile(request):
     }
 
     return render(request,"event/profile.html",context)
+
+def create(request):
+    user = request.user
+
+    auth0_user = user.social_auth.get(provider='auth0')
+
+    user_data={
+        'user_id':auth0_user.uid,
+        'name':user.first_name,
+        'picture':auth0_user.extra_data['picture']
+    }
+
+    return render(request,"event/create.html")
 
 def logout(request):
     django_logout(request)

@@ -16,6 +16,7 @@ urlpatterns = [
     path("home", views.home_page, name="home-page"),
     path("home_save_form", views.home_save_form, name="home-save-form"),
     path("profile/", views.profile, name="profile"),
+    path("create/", views.create, name="create"),
     path("", include('social_django.urls')),
     path('logout/',views.logout,name='logout'),
     # path("login", views.login_page, name="login-page"),
