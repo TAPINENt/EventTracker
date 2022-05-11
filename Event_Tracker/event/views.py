@@ -142,6 +142,15 @@ def create(request):
 
     return render(request,"event/create.html")
 
+
+
+def man_event(request):
+    event_list = Event.objects.all()
+    
+    return render(request, "event/man_event.html", {'event_list': event_list})
+
+
+
 def logout(request):
     django_logout(request)
 
