@@ -1,0 +1,47 @@
+{% extends 'event/base.html' %}
+{% load static %}
+{% block title %}Event Home{% endblock %}
+
+{% block content %}
+<!-- NAV BAR    -->
+
+<nav class="navbar navbar-dark">
+  <div class="container-fluid">
+      <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+      <span class="navbar-toggler-icon"></span>
+    </button> -->
+
+  <a class="navbar-brand" style="color: black" href="/home">
+    <img src="{% static "event/media/chevron-left-8x.png" %}" width="30" height="30" alt="logo">
+    Go Back
+  </a>
+  </div>
+</nav>
+{% for event in event_list %}
+<div class="container">
+<div class="card">
+    <div class="card-header">
+        <strong>{{ event.event_name }}</strong>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ event.event_org }}</h5>
+      <p class="card-text">
+        <ul>
+    
+            <li>{{ event.event_location }}</li>
+            <li>{{ event.event_org }}</li>
+            <li>{{ event.host.user_fname }}</li>
+            <li>{{ event.host.username }}</li>
+            <li>{{ event.event_start_date }}</li>
+            <li>{{ event.event_end_date }}</li>
+        </ul>
+      </p>
+    </div>
+  </div>
+
+
+<br/>
+</div>
+{% endfor %}
+
+{% endblock content %}

@@ -5,7 +5,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*custom font*/
- @import url(https://fonts.googleapis.com/css?family=Montserrat);
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -10472,5 +10472,4 @@ body {
 	margin-left: -40px;
 	box-sizing: content-box;
 }
-
 

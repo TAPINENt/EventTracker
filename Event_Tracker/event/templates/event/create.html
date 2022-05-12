@@ -10,8 +10,8 @@
       <span class="navbar-toggler-icon"></span>
     </button> -->
 
-  <a class="navbar-brand" href="/home">
-    <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/logo_white.png" width="30" height="30" alt="logo">
+  <a class="navbar-brand" style="color: black" href="/home">
+    <img src="{% static "event/media/chevron-left-8x.png" %}" width="30" height="30" alt="logo">
     Go Back
   </a>
   </div>
@@ -33,14 +33,14 @@
 	  <fieldset>
 		<h2 class="step-title">Create your Event</h2>
 		<br>
-		<input type="text" id="form_check" name="event_name" placeholder="Envent Name" required/>
-		<input type="text" name="event_location" placeholder="Location" />
-		<input type="text" name="event_org" placeholder="Organization" />
+		<input type="text" id="form_check" name="event_name" placeholder="Envent Name *" required/>
+		<input type="text" name="event_location" placeholder="Location *" />
+		<input type="text" name="event_org" placeholder="Organization *" />
 		<p>Event Image</p>
 		<input type="file" name="event_img" accept="image/gif, image/jpeg, image/png "/>
-		<p>Start Time</p>
+		<p>Start Time *</p>
 		<input type="datetime-local" id="form_check" name="event_start_date" placeholder="Start Time" required/>
-		<p>End Time</p>
+		<p>End Time *</p>
 		<input type="datetime-local" id="form_check" name="event_end_date" placeholder="End Time" required/>
 		<div class="button-wrapper">
 			<input type="button" name="next" class="next action-button" value="Next" />
@@ -51,9 +51,9 @@
 		<br>
 		<input type="text" name="fname" placeholder="First Name" />
 		<input type="text" name="lname" placeholder="Last Name" />
-		<input type="text" id="form_check" name="username" placeholder="Username" required/>
+		<input type="text" id="form_check" name="username" placeholder="Username *" required/>
 		<input type="number" name="phone" placeholder="Phone" />
-		<input type="text" id="form_check" name="email" placeholder="email" required/>
+		<input type="text" id="form_check" name="email" placeholder="email *" required/>
 		<div class="button-wrapper">
 			<input type="button" name="previous" class="previous action-button" value="Previous" />
 			<input type="button" name="next" class="next action-button" value="Next" />
@@ -65,7 +65,7 @@
 		<input type="text" name="twitter" placeholder="Twitter" />
 		<input type="text" name="instagram" placeholder="Instagram" />
 		<input type="text" name="facebook" placeholder="Facebook" />
-		<textarea name="user_bio" placeholder="Bio"></textarea>
+		<textarea name="user_bio" placeholder="Bio *"></textarea>
 		<div class="button-wrapper">
 			<input type="button" name="previous" class="previous action-button" value="Previous" />
 			<input type="submit" name="submit" class="submit next action-button" value="Submit" />
@@ -222,7 +222,7 @@ function scroll_to_progress_bar_top() {
 function enable_or_disable_next_button($field) {
 
     var current_fs = jQuery($field).closest("fieldset"),
-        current_fs_inputs = current_fs.find("input, textarea").not(':input[type=button], :input[type=submit], :input[name$="_submit"], :input[name$="event_img"], :input[name$="fname"], :input[name$="lname"], :input[name$="phone"]'),
+        current_fs_inputs = current_fs.find("input, textarea").not(':input[type=button], :input[type=submit], :input[name$="_submit"], :input[name$="event_img"], :input[name$="fname"], :input[name$="lname"], :input[name$="phone"], :input[name$="twitter"], :input[name$="instagram"], :input[name$="facebook"], :input[name$="user_bio"]'),
         empty = false;
 
     current_fs_inputs.each(function () {
@@ -269,6 +269,16 @@ jQuery(inputfields).each(function () {
 // jQuery(".submit").click(function () {
 // 	event.preventDefault();
 // });
+var somethingChanged=false;
+	$('#msform input').change(function() { 
+		somethingChanged = true; 
+	}); 
+	$(window).bind('beforeunload', function(e){
+		if(somethingChanged)
+			return "You made some changes and it's not saved?";
+		else 
+			e=null; // i.e; if form state change show warning box, else don't show it.
+	});
 
   </script>
 

@@ -15,7 +15,7 @@ class Todo(models.Model):
 
 
 class Event_Users(models.Model):
-  user_id = models.AutoField(primary_key=True)
+  user_id = models.AutoField(primary_key=True,editable=False)
   # models.Autofield(primary_key=True, editable=False, max_length=10)
   user_fname = models.CharField(max_length=30,null=True)
   user_lname = models.CharField(max_length=30,null=True)
@@ -27,7 +27,7 @@ class Event_Users(models.Model):
 
 
 class Event_Socials(models.Model):
-  social_id = models.AutoField(primary_key=True)
+  social_id = models.AutoField(primary_key=True, editable=False)
   user_id = models.ForeignKey(Event_Users, on_delete=models.CASCADE,null=True)
   twitter = models.CharField(max_length=30,null=True)
   instagram = models.CharField(max_length=30,null=True)
@@ -43,7 +43,7 @@ class Event_Socials(models.Model):
 
 
 class Event(models.Model):
-  event_id = models.AutoField(primary_key=True)
+  event_id = models.AutoField(primary_key=True, editable=False)
   u = uuid.uuid4()
   s = shortuuid.encode(u)
   event_code = models.UUIDField(default = u,
@@ -60,7 +60,7 @@ class Event(models.Model):
   objects=models.Manager()
 
 class Event_Host(models.Model):
-  host = models.ForeignKey(Event_Users, on_delete=models.CASCADE,null=True)
+  host = models.ForeignKey(Event_Users, on_delete=models.CASCADE,null=True, editable=False)
   social = models.ForeignKey(Event_Socials, on_delete=models.CASCADE,null=True)
   event = models.ForeignKey(Event, on_delete=models.CASCADE,null=True)
   objects=models.Manager()
@@ -70,5 +70,5 @@ class Event_Host(models.Model):
  
 
 class Event_Attendee(models.Model):
-  event_id = models.ForeignKey(Event, on_delete=models.CASCADE,max_length=12)
+  event_id = models.ForeignKey(Event, on_delete=models.CASCADE,max_length=12, editable=False)
   user_id = models.ForeignKey(Event_Users, on_delete=models.CASCADE, max_length=12)

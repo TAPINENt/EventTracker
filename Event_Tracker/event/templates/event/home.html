@@ -12,7 +12,7 @@
                         <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                         </div>
-                        <a data-toggle="modal" href="#exampleModalCenter" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"class="btn btn-primary stretched-link">Create Event</a>
+                        <a data-toggle="modal" href="#createdEvents" data-bs-toggle="modal" data-bs-target="#createdEvents"class="btn btn-primary stretched-link">Create Event</a>
                 </div>
             </div>
             <div class="col-sm d-flex pb-3 justify-content-md-center">
@@ -41,7 +41,7 @@
         </div>
     </div> -->
 
-    <br><br><br><br><br>
+    <br><br><br><br>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 <div class="section_our_solution">
@@ -154,13 +154,13 @@
               </svg>
             </div>
             <div class="solu_title">
-              <h3>Demo 2</h3>
+              <h3>Go to Events</h3>
             </div>
             <div class="solu_description">
               <p>
                 It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
               </p>
-              <button type="button" class="read_more_btn">Read More</button>
+              <button type="button" class="read_more_btn" data-bs-toggle="modal" data-bs-target="#createdEvents">Events</button>
             </div>
           </div>
         </div>
@@ -214,13 +214,13 @@
               </svg>
             </div>
             <div class="solu_title">
-              <h3>Demo 3</h3>
+              <h3>Manage Events</h3>
             </div>
             <div class="solu_description">
               <p>
                 It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
               </p>
-              <button type="button" class="read_more_btn">Read More</button>
+              <button type="button"  onclick="location.href='/man_event'" class="read_more_btn">Manage Events</button>
             </div>
           </div>
           <div class="solution_card">
@@ -287,9 +287,52 @@
 </div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="createdEvents" tabindex="-1" role="dialog" aria-labelledby="createdEventsTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title w-100" id="exampleModalLongTitle">Events</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-4">
+            <div class="list-group" id="list-tab" role="tablist">
+              <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>
+              <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
+              <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>
+              <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
+            </div>
+          </div>
+          <div class="col-8">
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">Home</div>
+              <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">Profile</div>
+              <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
+              <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <script>
+$('#list-tab a').on('click', function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
 
+$('#list-tab a[href="#profile"]').tab('show') // Select tab by name
+$('#list-tab a:first-child').tab('show') // Select first tab
+$('#list-tab a:last-child').tab('show') // Select last tab
+$('#list-tab a:nth-child(3)').tab('show') // Select third tab
 
 </script>
 
