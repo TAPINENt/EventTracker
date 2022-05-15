@@ -57,12 +57,14 @@ class Event(models.Model):
   event_start_date = models.DateTimeField()
   event_end_date = models.DateTimeField()
   event_image = models.ImageField()
+  about_event = models.TextField(max_length=500,null=True)
   objects=models.Manager()
 
 class Event_Host(models.Model):
   host = models.ForeignKey(Event_Users, on_delete=models.CASCADE,null=True, editable=False)
   social = models.ForeignKey(Event_Socials, on_delete=models.CASCADE,null=True)
   event = models.ForeignKey(Event, on_delete=models.CASCADE,null=True)
+  auth_user = models.CharField(max_length=50,null=True)
   objects=models.Manager()
 
   def _str_(self):

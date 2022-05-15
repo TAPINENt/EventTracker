@@ -40,36 +40,24 @@ def home_page(request):
     }
     print(user_data)
 
+    # event_list = Event.objects.all()
+    # event_host = Event_Host.objects.all()
+    event_join = Event_Host.objects.select_related('host','social','event').filter(auth_user=user.id)
     context = {
         'user_data':json.dumps(user_data,indent=4),
-        'auth0_user':auth0_user
+        'auth0_user':auth0_user,
+        'event_join': event_join
     }
 
-    form_class = SocialForm
-    # form_class1 = SocialForm
-    # if this is a POST request we need to process the form data
-    form = form_class(request.POST or None)
-    # form1 = form_class1(request.POST or None)
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
-        # form1 = SocialForm(request.POST)
-        # check whether it's valid:
-        #if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            #return HttpResponseRedirect('/thanks/')
-
-    # if a GET (or any other method) we'll create a blank form
-    #else:
-       # form = NameForm()
 
 
-    return render(request, "event/home.html",context,{'form': form})
+    return render(request, "event/home.html",context)
 
 
 def home_save_form(request):
+    
+    user = request.user
+
     context = {}
     if request.method!="POST":
         return HttpResponseRedirect(reverse("home-page"))
@@ -83,6 +71,7 @@ def home_save_form(request):
             media_name = fs.save(event_img.name, event_img)
             context['media_url'] = fs.url(media_name)
             print(event_img.size)
+        about_event = request.POST.get("about_event")
         event_start_date = request.POST.get("event_start_date")
         event_end_date = request.POST.get("event_end_date")
         twitter = request.POST.get("twitter")
@@ -100,9 +89,9 @@ def home_save_form(request):
         print("this is evnt users",event_user.pk)
         social_media=Event_Socials(twitter=twitter,Facebook=Facebook,instagram=instagram,user_bio=user_bio,phone=phone,email=email)
         social_media.save()
-        event_create=Event(event_name=event_name, event_location=event_location, event_org=event_org,event_start_date=event_start_date, event_end_date=event_end_date, event_image = fs.url(media_name) if event_img != False else "", host_id=event_user.pk)
+        event_create=Event(event_name=event_name, event_location=event_location, event_org=event_org,event_start_date=event_start_date, event_end_date=event_end_date, event_image = fs.url(media_name) if event_img != False else "", about_event = about_event, host_id=event_user.pk)
         event_create.save()
-        event_host=Event_Host(host_id=event_user.user_id, social_id=social_media.social_id,event_id=event_create.pk)
+        event_host=Event_Host(host_id=event_user.user_id, social_id=social_media.social_id,event_id=event_create.pk, auth_user = user.id)
         event_host.save()
         messages.success(request, "Data Save Successfully")
         return HttpResponseRedirect(reverse("home-page"))
@@ -145,7 +134,8 @@ def create(request):
 
 
 def man_event(request):
-    event_list = Event.objects.all()
+    user = request.user
+    event_list = Event_Host.objects.select_related('host','social','event').filter(auth_user=user.id)
     
     return render(request, "event/man_event.html", {'event_list': event_list})
 
@@ -162,4 +152,4 @@ def logout(request):
 
 class TodoView(viewsets.ModelViewSet):  
     serializer_class = TodoSerializer   
-    queryset = Todo.objects.all()     
+    queryset = Todo.objects.all()  

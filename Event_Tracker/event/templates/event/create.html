@@ -38,6 +38,7 @@
 		<input type="text" name="event_org" placeholder="Organization *" />
 		<p>Event Image</p>
 		<input type="file" name="event_img" accept="image/gif, image/jpeg, image/png "/>
+		<textarea name="about_event" placeholder="Describe Event..."></textarea>
 		<p>Start Time *</p>
 		<input type="datetime-local" id="form_check" name="event_start_date" placeholder="Start Time" required/>
 		<p>End Time *</p>
@@ -65,10 +66,10 @@
 		<input type="text" name="twitter" placeholder="Twitter" />
 		<input type="text" name="instagram" placeholder="Instagram" />
 		<input type="text" name="facebook" placeholder="Facebook" />
-		<textarea name="user_bio" placeholder="Bio *"></textarea>
+		<textarea name="user_bio" placeholder="Bio"></textarea>
 		<div class="button-wrapper">
 			<input type="button" name="previous" class="previous action-button" value="Previous" />
-			<input type="submit" name="submit" class="submit next action-button" value="Submit" />
+			<input type="submit" id="save" name="submit" class="submit next action-button" value="Submit" />
 		</div>
 	  </fieldset>
 	  <div class="ripple-loader">
@@ -222,7 +223,7 @@ function scroll_to_progress_bar_top() {
 function enable_or_disable_next_button($field) {
 
     var current_fs = jQuery($field).closest("fieldset"),
-        current_fs_inputs = current_fs.find("input, textarea").not(':input[type=button], :input[type=submit], :input[name$="_submit"], :input[name$="event_img"], :input[name$="fname"], :input[name$="lname"], :input[name$="phone"], :input[name$="twitter"], :input[name$="instagram"], :input[name$="facebook"], :input[name$="user_bio"]'),
+        current_fs_inputs = current_fs.find("input, textarea").not(':input[type=button], :input[type=submit], :input[name$="_submit"], :input[name$="event_img"], :input[name$="fname"], :input[name$="lname"], :input[name$="phone"], :input[name$="twitter"], :input[name$="instagram"], :input[name$="facebook"], :input[name$="user_bio"], :input[name$="about_event"]'),
         empty = false;
 
     current_fs_inputs.each(function () {
@@ -269,17 +270,37 @@ jQuery(inputfields).each(function () {
 // jQuery(".submit").click(function () {
 // 	event.preventDefault();
 // });
-var somethingChanged=false;
-	$('#msform input').change(function() { 
-		somethingChanged = true; 
-	}); 
-	$(window).bind('beforeunload', function(e){
-		if(somethingChanged)
-			return "You made some changes and it's not saved?";
-		else 
-			e=null; // i.e; if form state change show warning box, else don't show it.
-	});
+// var somethingChanged=false;
+// var setFormSubmitting = function() { formSubmitting = true; };
+// 	$('#msform input').change(function() { 
+// 		somethingChanged = true; 
+// 	}); 
+// 	$(window).bind('beforeunload', function(e){
+// 		if(somethingChanged)
+// 			return "You made some changes and it's not saved?";
+// 		else 
+// 			e=null; // i.e; if form state change show warning box, else don't show it.
+// 	});
+var submitted = false;
+var userinput = false;
+ 
+$(document).ready(function() {
+  $("#msform").submit(function() {
+    submitted = true;
+  });
 
+  $("#msform input").change(function() {
+    userinput = true;
+  });
+ 
+  window.onbeforeunload = function () {
+    if (userinput && !submitted) {
+      return 'You do not have submitted the form yet.\
+      Do you really want to leave this page?';
+    }
+  }
+});
+    
   </script>
 
 {% endblock content %}
