@@ -139,6 +139,11 @@ def man_event(request):
     
     return render(request, "event/man_event.html", {'event_list': event_list})
 
+def event_entree(request):
+    user = request.user
+    
+    return render(request, "event/event_entree.html",)
+
 
 
 def logout(request):
@@ -146,7 +151,7 @@ def logout(request):
 
     domain=config('APP_DOMAIN')
     client_id=config('APP_CLIENT_ID')
-    return_to='http://127.0.0.1:8000'
+    return_to='http://127.0.0.1:8000/host'
 
     return HttpResponseRedirect(f"https://{domain}/v2/logout?client_id={client_id}&returnTo={return_to}")
 

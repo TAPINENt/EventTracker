@@ -1,0 +1,10 @@
+{% extends 'event/base.html' %}
+{% load static %}
+{% block title %}Event Home{% endblock %}
+
+{% block content %}
+
+{% load qr_code %}
+{% qr_from_text "Hello World!" size="L" %}
+<!-- {% qr_from_text "Hello World!" size="m" image_format="png" error_correction="L" %} -->
+{% endblock content %}

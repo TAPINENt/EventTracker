@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'social_django',
     'corsheaders',
     'rest_framework',
-    'phonenumber_field'
+    'phonenumber_field',
+    'qr_code',
 ]
 
 MIDDLEWARE = [
@@ -172,4 +173,4 @@ AUTHENTICATION_BACKENDS = {
 #Configure the login, redirect login and redirect logout URLs 
 # Eventtracker\settings.py
 LOGIN_URL = '/login/auth0'
-LOGIN_REDIRECT_URL = '/home'
+LOGIN_REDIRECT_URL = '/host'
