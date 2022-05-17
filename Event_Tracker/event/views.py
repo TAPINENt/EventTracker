@@ -10,11 +10,13 @@ from django.contrib.auth import logout as django_logout
 from django.http import HttpResponseRedirect
 from decouple import config
 from .serializers import TodoSerializer 
-from rest_framework import viewsets      
+from rest_framework import viewsets,generics,status      
 from .models import Event, Event_Socials, Event_Users, Event_Host, Todo  
 from .Event_forms import NameForm,SocialForm
 from django.core.files.storage import FileSystemStorage
 from django.core.exceptions import ValidationError
+from rest_framework.views import APIView
+from rest_framework.response import Response
 import json
 
 DEBUG= config('DEBUG') 

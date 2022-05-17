@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'phonenumber_field',
     'qr_code',
+    'frontend.apps.FrontendConfig'
 ]
 
 MIDDLEWARE = [
