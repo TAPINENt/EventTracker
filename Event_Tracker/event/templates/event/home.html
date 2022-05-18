@@ -299,21 +299,19 @@
       <div class="modal-body">
         <div class="row">
           {% for event in event_join %}
-          <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-              <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{ event.event.event_name }}</h5>
-                <small>{{ event.event.event_start_date }} - {{ event.event.event_end_date }}</small>
-              </div>
-              <p class="mb-10">{{ event.event.about_event  }}</p>
-              <small>by: {{ event.host.user_fname  }} @ {{ event.event.event_org  }}</small>
-              <div class="text-right">
-                <button type="button" class="btn btn-primary">Event Code</button>
-                <button type="button" class="btn btn-success">Enter Event</button>
-              </div>
-            </a>
-            {% endfor %}
+            <div class="card">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">{{ event.event.event_name }}</h5>
+                  <small>{{ event.event.event_start_date }} - {{ event.event.event_end_date }}</small>
+                </div>
+                <p class="mb-10">{{ event.event.about_event  }}</p>
+                <small>by: {{ event.host.user_fname  }} @ {{ event.event.event_org  }}</small>
+                <div class="text-right">
+                  <button type="button" class="btn btn-primary">Event Code</button>
+                  <button type="button" class="btn btn-success">Enter Event</button>
+                </div>
           </div>
+            {% endfor %}
       </div>
     </div>
   </div>
