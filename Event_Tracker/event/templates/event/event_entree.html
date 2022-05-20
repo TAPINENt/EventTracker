@@ -23,14 +23,38 @@
         <p>{% qr_from_text event size="L" %}</p>
         <div class=" h-100 d-flex justify-content-center align-items-center" >
             {% for code in event_code%}
-            <div class="container gradient-border" id = "box">
-                {% comment %} <div class="jumbotron h-100 d-flex justify-content-center align-items-center"> {% endcomment %}
-                    <h1 class="gradienttext"><b>{{code.event_code_short}}<b></h1>
-                {% comment %} </div> {% endcomment %}
-            {% comment %} <a href="{{ event }}"><h2>{{code.event_code_short}}</h2></a> {% endcomment %}
+            <div class="container d-flex justify-content-center align-items-center gradient-border" id = "box">
+                    <h1 class="gradienttext"><b><a href ="{{ event }}"> {{code.event_code_short}}</a><b></h1>
             {% endfor %}
         </div>
     </div>
-  </div>
+  </div> 
+
+{% comment %} <div class="container-fluidh-100 d-flex justify-content-Left align-items-Left">
+    <div class="row">
+        <div class="col-lg-6">
+            <h2 class="gradienttext"> Scan </h3>
+        </div>
+        <div class="col-lg-6">
+            {% qr_from_text event size="L" %}
+        </div>
+    </div>
+</div>
+<div class="container-fluidh-100 d-flex justify-content-Left align-items-Left">
+    <div class="row">
+        <div class="col-lg-6">
+            <h2 class="gradienttext"> Enter Room Code </h3>
+        </div>
+        <div class="col-lg-6">
+            <div class=" h-100 w-60 d-flex justify-content-center align-items-center" >
+                    {% for code in event_code%}
+                <div class="container gradient-border " id = "box">
+                    <h1 class="gradienttext"><b><a href ="{{ event }}"> {{code.event_code_short}}</a><b></h1>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div> {% endcomment %}
 <!-- {% qr_from_text "Hello World!" size="m" image_format="png" error_correction="L" %} -->
 {% endblock content %}
