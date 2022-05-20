@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import RoomJoinPage from "./RoomJoinPage";
+import EventJoinPage from "./EventJoinPage";
 import CreateRoomPage from "./CreateRoomPage";
+import Event from "./Event";
 import { BrowserRouter as Router, Switch, Route, Link, Redirect, } from "react-router-dom";
+
 
 export default class App extends Component{
     constructor(props){
@@ -14,8 +16,9 @@ export default class App extends Component{
                 <Route exact path= '/'>
                     <p>This is Homepage</p>
                 </Route>
-                <Route path='/join' component={RoomJoinPage} ></Route>
+                <Route path='/join' component={EventJoinPage} ></Route>
                 <Route path='/create' component={CreateRoomPage} ></Route>
+                <Route path='/event/:eventCode' component={Event}></Route>
             </switch>
         </Router>);
     }

@@ -3,8 +3,34 @@
 {% block title %}Event Home{% endblock %}
 
 {% block content %}
-
+<nav class="navbar navbar-dark">
+    <div class="container-fluid">
+        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
+  
+    <a class="navbar-brand" style="color: black" href="/host/event/home">
+      <img src="{% static "event/media/chevron-left-8x.png" %}" width="30" height="30" alt="logo">
+      Go Back
+    </a>
+    </div>
+</nav>
 {% load qr_code %}
-{% qr_from_text "Hello World!" size="L" %}
+<br>
+<br>
+<div class=" h-100 d-flex justify-content-center align-items-center">
+    <div>
+        <p>{% qr_from_text event size="L" %}</p>
+        <div class=" h-100 d-flex justify-content-center align-items-center" >
+            {% for code in event_code%}
+            <div class="container gradient-border" id = "box">
+                {% comment %} <div class="jumbotron h-100 d-flex justify-content-center align-items-center"> {% endcomment %}
+                    <h1 class="gradienttext"><b>{{code.event_code_short}}<b></h1>
+                {% comment %} </div> {% endcomment %}
+            {% comment %} <a href="{{ event }}"><h2>{{code.event_code_short}}</h2></a> {% endcomment %}
+            {% endfor %}
+        </div>
+    </div>
+  </div>
 <!-- {% qr_from_text "Hello World!" size="m" image_format="png" error_correction="L" %} -->
 {% endblock content %}

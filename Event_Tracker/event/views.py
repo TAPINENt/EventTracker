@@ -9,7 +9,7 @@ from flask import request
 from django.contrib.auth import logout as django_logout
 from django.http import HttpResponseRedirect
 from decouple import config
-from .serializers import TodoSerializer 
+from .serializers import TodoSerializer, RoomSerializer
 from rest_framework import viewsets,generics,status      
 from .models import Event, Event_Socials, Event_Users, Event_Host, Todo  
 from .Event_forms import NameForm,SocialForm
@@ -141,10 +141,19 @@ def man_event(request):
     
     return render(request, "event/man_event.html", {'event_list': event_list})
 
-def event_entree(request):
+def event_entree(request, event_code = None):
+    event_code = event_code
     user = request.user
-    
-    return render(request, "event/event_entree.html",)
+    context={
+        'event' : 'http://127.0.0.1:8000/event/'+event_code,
+        'event_code' : Event.objects.filter(event_code=event_code)
+    }
+
+
+    # for code in event_code:
+    #     print(code.event_code_short)
+
+    return render(request, "event/event_entree.html", context,)
 
 
 
@@ -159,4 +168,5 @@ def logout(request):
 
 class TodoView(viewsets.ModelViewSet):  
     serializer_class = TodoSerializer   
-    queryset = Todo.objects.all()  
+    queryset = Todo.objects.all()
+
