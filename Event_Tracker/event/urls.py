@@ -6,6 +6,7 @@ from tomlkit import document
 from django.conf import settings #image upload
 from django.conf.urls.static import static
 from . import views
+from .views import RoomView
 
 router = routers.DefaultRouter()                   
 router.register(r'todos', views.TodoView, 'todo') 
@@ -19,6 +20,7 @@ urlpatterns = [
     path("event/create/", views.create, name="create"),
     path("event_entree/<str:event_code>/", views.event_entree, name="event_entree"),
     path("event/man_event/", views.man_event, name="man_event"),
+    path("event/api/", RoomView.as_view()),
     path("", include('social_django.urls')),
     path('logout/',views.logout,name='logout'),
     # path("login", views.login_page, name="login-page"),

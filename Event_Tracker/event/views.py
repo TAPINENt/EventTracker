@@ -15,6 +15,7 @@ from .models import Event, Event_Socials, Event_Users, Event_Host, Todo
 from .Event_forms import NameForm,SocialForm
 from django.core.files.storage import FileSystemStorage
 from django.core.exceptions import ValidationError
+from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 import json
@@ -154,6 +155,10 @@ def event_entree(request, event_code = None):
     #     print(code.event_code_short)
 
     return render(request, "event/event_entree.html", context,)
+
+class RoomView(generics.ListAPIView):
+    queryset = Event.objects.all()
+    serializer_class = RoomSerializer
 
 
 
