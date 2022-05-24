@@ -18,7 +18,7 @@ export default class EventJoinPage extends Component {
       <Grid container spacing={1}>
         <Grid item xs={12} align="center">
           <Typography variant="h4" component="h4">
-            Join a Event
+            Join Event
           </Typography>
         </Grid>
         <Grid item xs={12} align="center">
@@ -53,7 +53,24 @@ export default class EventJoinPage extends Component {
   }
 
   eventButtonProssed(){
-    console.log(this.state.eventCode)
+    
+    const requestOptions = {
+      method: "POST",
+      headers: {"Content-Type": "application/json", },
+      body: JSON.stringify({
+        code: this.state.eventCode,
+      }),
+    };
+    fetch("/event/join-event", requestOptions).then((response) =>{
+      if (response.ok){
+          this.props.history.push(`/room/${this.state.roomCode}`);
+        } else {
+          this.setState({ error: "Room not found." });
+        }
+    })
+     .catch((error) => {
+        console.log(error);
+      });
   }
 
 }

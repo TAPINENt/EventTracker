@@ -18,6 +18,7 @@ from django.core.exceptions import ValidationError
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.http import JsonResponse
 import json
 
 DEBUG= config('DEBUG') 
@@ -159,6 +160,26 @@ def event_entree(request, event_code = None):
 class RoomView(generics.ListAPIView):
     queryset = Event.objects.all()
     serializer_class = RoomSerializer
+
+class JoinEvent(APIView):
+    lookup_url_kwarg = 'event_code_short'
+
+    def post(self, request, format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+    
+        code = request.data.get(self.lookup_url_kwarg)
+        print(code)
+        if code != None:
+            room_result = Event.objects.filter(event_code_short=code)
+            if len(room_result) > 0:
+                room = room_result[0]
+                self.request.session['event_code'] = code
+                return Response({'message': 'Room Joined!'}, status=status.HTTP_200_OK)
+
+            return Response({'Bad Request': 'Invalid Room Code'}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({'Bad Request': 'Invalid post data, did not find a code key'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
