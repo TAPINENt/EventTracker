@@ -8,6 +8,8 @@ class TodoSerializer(serializers.ModelSerializer):
         model = Todo
         fields = ('id' ,'title', 'description', 'completed')
 
-class CreateRoomSerializer(serializers.ModelSerializer):
+class RoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
+
+        fields = ('event_id','event_code','event_code_short','event_name','event_location','event_org','host','event_start_date','event_end_date','event_image','about_event',)

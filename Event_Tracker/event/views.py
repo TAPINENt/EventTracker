@@ -9,15 +9,17 @@ from flask import request
 from django.contrib.auth import logout as django_logout
 from django.http import HttpResponseRedirect
 from decouple import config
-from .serializers import TodoSerializer 
+from .serializers import TodoSerializer, RoomSerializer
 from rest_framework import viewsets,generics,status      
 from .models import Event, Event_Socials, Event_Users, Event_Host
 from .models import Todo  
 from .Event_forms import NameForm,SocialForm
 from django.core.files.storage import FileSystemStorage
 from django.core.exceptions import ValidationError
+from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.http import JsonResponse
 import json
 
 DEBUG= config('DEBUG') 
@@ -142,10 +144,43 @@ def man_event(request):
     
     return render(request, "event/man_event.html", {'event_list': event_list})
 
-def event_entree(request):
+def event_entree(request, event_code = None):
+    event_code = event_code
     user = request.user
+    context={
+        'event' : 'http://127.0.0.1:8000/event/'+event_code,
+        'event_code' : Event.objects.filter(event_code=event_code)
+    }
+
+
+    # for code in event_code:
+    #     print(code.event_code_short)
+
+    return render(request, "event/event_entree.html", context,)
+
+class RoomView(generics.ListAPIView):
+    queryset = Event.objects.all()
+    serializer_class = RoomSerializer
+
+class JoinEvent(APIView):
+    lookup_url_kwarg = 'event_code_short'
+
+    def post(self, request, format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
     
-    return render(request, "event/event_entree.html",)
+        code = request.data.get(self.lookup_url_kwarg)
+        print(code)
+        if code != None:
+            room_result = Event.objects.filter(event_code_short=code)
+            if len(room_result) > 0:
+                room = room_result[0]
+                self.request.session['event_code'] = code
+                return Response({'message': 'Room Joined!'}, status=status.HTTP_200_OK)
+
+            return Response({'Bad Request': 'Invalid Room Code'}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({'Bad Request': 'Invalid post data, did not find a code key'}, status=status.HTTP_400_BAD_REQUEST)
 
 def delete_event(request, event_idd):
     # event = Event_Host.objects.select_related('host','social','event').filter(event_id=event_idd)
@@ -221,4 +256,5 @@ def logout(request):
 
 class TodoView(viewsets.ModelViewSet):  
     serializer_class = TodoSerializer   
-    queryset = Todo.objects.all()  
+    queryset = Todo.objects.all()
+

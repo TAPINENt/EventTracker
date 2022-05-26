@@ -3,9 +3,8 @@ from django.contrib import admin
 from django.urls import path,include
 from rest_framework import routers
 from tomlkit import document
-from django.conf import settings #image upload
-from django.conf.urls.static import static
 from . import views
+from .views import RoomView, JoinEvent
 
 router = routers.DefaultRouter()                   
 router.register(r'todos', views.TodoView, 'todo') 
@@ -21,12 +20,13 @@ urlpatterns = [
     path("event/create/", views.create, name="create"),
     path("event_entree/", views.event_entree, name="event_entree"),
     path("event/update_event/<event_idd>", views.update_event, name="update_event"),
+    path("event_entree/<str:event_code>/", views.event_entree, name="event_entree"),
     path("event/man_event/", views.man_event, name="man_event"),
+    path("event/api/", RoomView.as_view()),
+    path("join-event", JoinEvent.as_view()),
     path("", include('social_django.urls')),
     path('logout/',views.logout,name='logout'),
     # path("login", views.login_page, name="login-page"),
     # path("signup", views.login_page, name="login-page"),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

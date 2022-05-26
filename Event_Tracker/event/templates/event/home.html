@@ -306,8 +306,9 @@
                 </div>
                 <p class="mb-10">{{ event.event.about_event  }}</p>
                 <small>by: {{ event.host.user_fname  }} @ {{ event.event.event_org  }}</small>
+                <input type="hidden" id="eventCode" name="eventCode" value="{{ event.event.event_code }} ">
                 <div class="text-right">
-                  <button type="button" class="btn btn-primary">Event Code</button>
+                  <button type="button" class="btn btn-primary" onclick="location.href='/host/event_entree/{{ event.event.event_code }}'">Event Code</button>
                   <button type="button" class="btn btn-success">Enter Event</button>
                 </div>
             </div>
@@ -320,15 +321,6 @@
 
 
 <script>
-$('#list-tab a').on('click', function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
-
-$('#list-tab a[href="#profile"]').tab('show') // Select tab by name
-$('#list-tab a:first-child').tab('show') // Select first tab
-$('#list-tab a:last-child').tab('show') // Select last tab
-$('#list-tab a:nth-child(3)').tab('show') // Select third tab
 
 </script>
 
