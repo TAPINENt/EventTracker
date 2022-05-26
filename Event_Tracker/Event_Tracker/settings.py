@@ -174,4 +174,4 @@ AUTHENTICATION_BACKENDS = {
 #Configure the login, redirect login and redirect logout URLs 
 # Eventtracker\settings.py
 LOGIN_URL = '/login/auth0'
-LOGIN_REDIRECT_URL = '/host'
+LOGIN_REDIRECT_URL = '/host/event/home/'

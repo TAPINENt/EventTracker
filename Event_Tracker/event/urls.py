@@ -21,7 +21,7 @@ urlpatterns = [
     path("event/api/", RoomView.as_view()),
     path("join-event", JoinEvent.as_view()),
     path("", include('social_django.urls')),
-    path('logout/',views.logout,name='logout'),
+    path("logout/",views.logout,name="logout"),
     # path("login", views.login_page, name="login-page"),
     # path("signup", views.login_page, name="login-page"),
 ]

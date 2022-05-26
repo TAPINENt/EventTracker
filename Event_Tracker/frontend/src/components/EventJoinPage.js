@@ -56,14 +56,14 @@ export default class EventJoinPage extends Component {
     
     const requestOptions = {
       method: "POST",
-      headers: {"Content-Type": "application/json", },
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
-        code: this.state.eventCode,
+        event_code_short: this.state.eventCode,
       }),
     };
-    fetch("/event/join-event", requestOptions).then((response) =>{
+    fetch("/host/join-event", requestOptions).then((response) =>{
       if (response.ok){
-          this.props.history.push(`/room/${this.state.roomCode}`);
+          this.props.history.push(`/room/${this.state.eventCode}`);
         } else {
           this.setState({ error: "Room not found." });
         }
