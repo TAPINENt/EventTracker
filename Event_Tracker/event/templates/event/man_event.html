@@ -22,6 +22,11 @@
 <div class="card">
     <div class="card-header">
         <strong>{{ event.event.event_name }}</strong>
+        <div class="text-right">
+            <button type="button" class="btn btn-secondary" onclick="location.href='{% url "update_event" event.id %}'"> Edit</button>
+            <button type="button" class="btn btn-danger" onclick="location.href='{% url "delete_event" event.id %}'"> Delete</button>
+           <!-- <button type="button" class="btn btn-danger">Delete</button> -->
+        </div>
     </div>
     <div class="card-body">
       <h5 class="card-title">{{ event.event.event_org }}</h5>
@@ -32,6 +37,7 @@
             <li>{{ event.event.event_org }}</li>
             <li>{{ event.event.host.user_fname }}</li>
             <li>{{ event.host.username }}</li>
+            <li>{{ event.event.about_event }}</li>
             <li>{{ event.event.event_start_date }}</li>
             <li>{{ event.event.event_end_date }}</li>
         </ul>

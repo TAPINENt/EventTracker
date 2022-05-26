@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Event, Event_Attendee, Event_Socials, Event_Users,Event_Host, Todo
+from .models import Event, Event_Attendee, Event_Socials, Event_Users,Event_Host
+from .models import Todo
 
 class TodoAdmin(admin.ModelAdmin):
   list = ('title', 'description', 'completed')

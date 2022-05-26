@@ -54,6 +54,7 @@ class Event(models.Model):
   event_location = models.CharField(max_length=30,null=True)
   event_org = models.CharField(max_length=30,null=True)
   host = models.ForeignKey(Event_Users, on_delete=models.CASCADE)
+  event_social = models.ForeignKey(Event_Socials, on_delete=models.CASCADE,null=True)
   event_start_date = models.DateTimeField()
   event_end_date = models.DateTimeField()
   event_image = models.ImageField()
