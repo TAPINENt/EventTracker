@@ -11,7 +11,7 @@
       <span class="navbar-toggler-icon"></span>
     </button> -->
 
-  <a class="navbar-brand" style="color: black" href="/host/event/home">
+  <a class="navbar-brand" style="color: black" href="/host/event/home/">
     <img src="{% static "event/media/chevron-left-8x.png" %}" width="30" height="30" alt="logo">
     Go Back
   </a>
@@ -23,8 +23,8 @@
     <div class="card-header">
         <strong>{{ event.event.event_name }}</strong>
         <div class="text-right">
-            <button type="button" class="btn btn-secondary" onclick="location.href='{% url "update_event" event.id %}'"> Edit</button>
-            <button type="button" class="btn btn-danger" onclick="location.href='{% url "delete_event" event.id %}'"> Delete</button>
+            <button type="button" class="btn btn-secondary" onclick="location.href='{% url "update_event" event.event_id %}'"> Edit</button>
+            <button type="button" class="btn btn-danger" onclick="location.href='{% url "delete_event" event.event_id %}'"> Delete</button>
            <!-- <button type="button" class="btn btn-danger">Delete</button> -->
         </div>
     </div>

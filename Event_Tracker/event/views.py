@@ -1,5 +1,6 @@
 from pickle import FALSE
 from pyexpat.errors import messages
+# from turtle import title
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.template import context
@@ -88,11 +89,10 @@ def home_save_form(request):
         username = request.POST.get("username")
         phone = request.POST.get("phone")
         email = request.POST.get("email")
-        # try:
         event_user=Event_Users(user_fname=user_fname, user_lname=user_lname,username=username)
         event_user.save()
         print("this is evnt users",event_user.pk)
-        social_media=Event_Socials(twitter=twitter,Facebook=Facebook,instagram=instagram,user_bio=user_bio,phone=phone,email=email)
+        social_media=Event_Socials(twitter=twitter,Facebook=Facebook,instagram=instagram,user_bio=user_bio,phone=phone,email=email,user_id_id=event_user.pk)
         social_media.save()
         event_create=Event(event_name=event_name, event_location=event_location, event_org=event_org,event_start_date=event_start_date, event_end_date=event_end_date, event_image = fs.url(media_name) if event_img != False else "", about_event = about_event, host_id=event_user.pk)
         event_create.save()
@@ -188,7 +188,8 @@ def delete_event(request, event_idd):
     event.delete()
     return redirect("man_event")
 
-def update_event_form(request, event_idd):
+def update_event_form(request, event_idd): #event_idd is actually id of host table
+    print(event_idd)
     
     user = request.user
 
@@ -217,19 +218,30 @@ def update_event_form(request, event_idd):
         username = request.POST.get("username")
         phone = request.POST.get("phone")
         email = request.POST.get("email")
+
+        print(twitter + Facebook)
         # try:
         # event = Event_Host.objects.select_related('host','social','event').filter(event_id=event_idd).update(host_id=event_user.user_id, social_id=social_media.social_id,event_id=event_create.pk, auth_user = user.id)
+        event_db = Event_Host.objects.select_related('host','social','event').filter(id=event_idd)
+        # host = Event_Host.objects.get(id=event_idd,host_id=host_id)
+        print(event_db[0].social_id)
+
+
         
         # eventt = Event.objects.filter('host', 'event_social').update_or_create()
         
-        event_user=Event_Users.objects.filter(user_id=event_idd).update_or_create(user_fname=user_fname, user_lname=user_lname,username=username)
+        # Tweet.objects.filter(pk=1).update(tweet_id=mentions.meta.get("newest_id"))
+        event_user=Event_Users.objects.filter(user_id=event_db[0].host_id).update(user_fname=user_fname, user_lname=user_lname,username=username)
+        #Get pk from event_social
         # event_user.save()
         # print("this is evnt users",event_user.pk)
-        social_media=Event_Socials.objects.filter(user_id=event_idd).update_or_create(twitter=twitter,Facebook=Facebook,instagram=instagram,user_bio=user_bio,phone=phone,email=email)
+        social_media=Event_Socials.objects.filter(social_id=event_db[0].social_id).update(twitter=twitter,Facebook=Facebook,instagram=instagram,user_bio=user_bio,phone=phone,email=email)
+        #Get social id from event_host and then update by that pk
         # social_media.save()
-        event_create=Event.objects.filter(event_id=event_idd).update_or_create(event_name=event_name, event_location=event_location, event_org=event_org,event_start_date=event_start_date, event_end_date=event_end_date, event_image = fs.url(media_name) if event_img != False else "", about_event = about_event)
+        event_create=Event.objects.filter(event_id=event_db[0].event_id).update(event_name=event_name, event_location=event_location, event_org=event_org,event_start_date=event_start_date, event_end_date=event_end_date, event_image = fs.url(media_name) if event_img != False else "", about_event = about_event)
         # event_create.save()
-        # event_host=Event_Host.objects.update_or_create(host_id=event_user.user_id, social_id=social_media.social_id,event_id=event_create.pk, auth_user = user.id)
+        # event_host=Event_Host.objects.update(host_id=event_db[0].id, social_id=social_media.social_id,event_id=event_create.pk, auth_user = user.id)
+        #UPDATE by event_id
         # event_host.save()
         messages.success(request, "Data Save Successfully")
         return HttpResponseRedirect(reverse("man_event"))
