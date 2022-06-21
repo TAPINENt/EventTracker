@@ -183,9 +183,8 @@ class JoinEvent(APIView):
         return Response({'Bad Request': 'Invalid post data, did not find a code key'}, status=status.HTTP_400_BAD_REQUEST)
 
 def delete_event(request, event_idd):
-    # event = Event_Host.objects.select_related('host','social','event').filter(event_id=event_idd)
-    event = Event.objects.get(pk=event_idd) 
-    event.delete()
+    event_db = Event_Host.objects.select_related('host','social','event').filter(event_id=event_idd)
+    Event_Users.objects.filter(user_id=event_db.first().host_id).delete()
     return redirect("man_event")
 
 def update_event_form(request, event_idd): #event_idd is actually id of host table
