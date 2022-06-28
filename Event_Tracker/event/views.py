@@ -187,7 +187,7 @@ def delete_event(request, event_idd):
     Event_Users.objects.filter(user_id=event_db.first().host_id).delete()
     return redirect("man_event")
 
-def update_event_form(request, event_idd): #event_idd is actually id of host table
+def update_event_form(request, event_idd): 
     print(event_idd)
     
     user = request.user
@@ -261,7 +261,7 @@ def logout(request):
 
     domain=config('APP_DOMAIN')
     client_id=config('APP_CLIENT_ID')
-    return_to='http://127.0.0.1:8000/host'
+    return_to='http://127.0.0.1:8000/host/'
 
     return HttpResponseRedirect(f"https://{domain}/v2/logout?client_id={client_id}&returnTo={return_to}")
 

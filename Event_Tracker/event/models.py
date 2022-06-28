@@ -44,12 +44,13 @@ class Event_Socials(models.Model):
 
 class Event(models.Model):
   event_id = models.AutoField(primary_key=True, editable=False)
-  u = uuid.uuid4()
-  s = shortuuid.encode(u)
-  event_code = models.UUIDField(default = u,
+  def short_unique():
+    u = uuid.uuid4()
+    s = shortuuid.encode(u)
+    return s[:7]
+  event_code = models.UUIDField(default = uuid.uuid4,
          editable = False)
-  short = s[:7]
-  event_code_short = models.CharField(max_length=10, default=short)
+  event_code_short = models.CharField(max_length=10, default=short_unique)
   event_name = models.CharField(max_length=55,null=True)
   event_location = models.CharField(max_length=30,null=True)
   event_org = models.CharField(max_length=30,null=True)

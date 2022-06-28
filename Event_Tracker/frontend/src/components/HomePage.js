@@ -14,7 +14,7 @@ export default class App extends Component{
         <Router>
             <switch>
                 <Route exact path= '/'>
-                    <p>This is Homepage</p>
+                    <p>This is Homepag</p>
                 </Route>
                 <Route path='/join' component={EventJoinPage} ></Route>
                 <Route path='/create' component={CreateRoomPage} ></Route>

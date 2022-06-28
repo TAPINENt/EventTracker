@@ -38,7 +38,7 @@
             <input type="text" name="event_org" value="{{ events.event.event_org }}" />
             <p>Event Image</p>
             <input type="file" name="event_img" accept="image/gif, image/jpeg, image/png "/>
-            <input type="text" name="about_event" value="{{ events.event.about_event }}"></input>
+            <textarea name="about_event" placeholder=" "> {{ events.event.about_event }} </textarea>
             <p>Start Time *</p>
             <input type="datetime-local" id="form_check" name="event_start_date" value="{{ events.event.event_start_date }}" required/>
             <p>End Time *</p>
@@ -66,9 +66,7 @@
             <input type="text" name="twitter" value="{{ events.social.twitter }}" />
             <input type="text" name="instagram" value="{{ events.social.instagram }}" />
             <input type="text" name="facebook" value="{{ events.social.Facebook }}" />
-            <textarea name="user_bio" value="{{ events.social.user_bio }}"></textarea>
-            <div class="button-wrapper">
-                <input type="button" name="previous" class="previous action-button" value="Previous" />
+            <textarea name="Bio" placeholder=" "> {{ events.social.user_bio }} </textarea>
                 <input type="submit" id="save" name="submit" class="submit next action-button" value="Submit" />
             </div>
         </fieldset>
