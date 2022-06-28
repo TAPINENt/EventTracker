@@ -187,7 +187,7 @@ def delete_event(request, event_idd):
     Event_Users.objects.filter(user_id=event_db.first().host_id).delete()
     return redirect("man_event")
 
-def update_event_form(request, event_idd): #event_idd is actually id of host table
+def update_event_form(request, event_idd): 
     print(event_idd)
     
     user = request.user
