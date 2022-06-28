@@ -16,9 +16,9 @@ render(){
                 <span class="navbar-toggler-icon"></span>
                 </button> -->  */}
 
-            <a class="navbar-brand" style="color: black" href="/host/event/home/">
+            {/* <a class="navbar-brand" style="color: black" href="/host/event/home/">
                 Go Back
-            </a>
+            </a> */}
             </div>
             
 
