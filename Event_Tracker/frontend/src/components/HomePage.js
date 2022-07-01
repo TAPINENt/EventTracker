@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import EventJoinPage from "./EventJoinPage";
 import CreateRoomPage from "./CreateRoomPage";
 import Event from "./Event";
+import Welcome from "./Welcome";
 import Home from "./Home";
 import { BrowserRouter as Router, Switch, Route, Link, Redirect, } from "react-router-dom";
 
@@ -14,10 +15,11 @@ export default class App extends Component{
         return (
         <Router>
             <switch>
+                <Route exact path='/' component={Home} ></Route>
+                <Route path='/welcome' component={Welcome} ></Route>
                 <Route path='/join' component={EventJoinPage} ></Route>
                 <Route path='/create' component={CreateRoomPage} ></Route>
                 <Route path='/event/:eventCode' component={Event}></Route>
-                <Route path='/' component={Home} ></Route>
             </switch>
         </Router>);
     }

@@ -162,7 +162,7 @@ class RoomView(generics.ListAPIView):
     queryset = Event.objects.all()
     serializer_class = RoomSerializer
 
-class JoinEvent(APIView):
+class JoinEvent(APIView):   
     lookup_url_kwarg = 'event_code_short'
 
     def post(self, request, format=None):

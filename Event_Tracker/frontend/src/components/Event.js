@@ -12,11 +12,15 @@ export default class Event extends Component {
     }
 
     render(){
-        return <div>
+        return <html lang="en">
+            <a href="/host/event/home/"> Go Back
+            </a>
+             <div className="center">
             <h3>{this.eventCode}</h3>
             <p> Event Name; {this.state.eventName}</p>
             <p> Host; {this.state.hostName}</p>
             <p> Org; {this.state.eventOrg}</p>
-        </div>
+            </div>
+        </html>
     }
 }
