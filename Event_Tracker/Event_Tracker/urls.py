@@ -20,7 +20,7 @@ from django.conf import settings #image upload
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin', admin.site.urls),
+    path('admin/', admin.site.urls),
     path("host/", include("event.urls")),
     path('', include('frontend.urls'))
 ]

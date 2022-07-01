@@ -4,7 +4,7 @@ from django.urls import path,include
 from rest_framework import routers
 from tomlkit import document
 from . import views
-from .views import RoomView, JoinEvent
+from .views import RoomView, JoinEvent,GetEvent
 
 # app_name = 'event'
 
@@ -26,6 +26,7 @@ urlpatterns = [
     path("event/man_event/", views.man_event, name="man_event"),
     path("event/api/", RoomView.as_view()),
     path("join-event", JoinEvent.as_view()),
+    path("get-event", GetEvent.as_view()),
     path("", include('social_django.urls')),
     path("logout/",views.logout,name="logout"),
     # path("login", views.login_page, name="login-page"),
