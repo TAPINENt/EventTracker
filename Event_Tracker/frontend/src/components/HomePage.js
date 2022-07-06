@@ -20,10 +20,6 @@ export default class App extends Component{
                 <Route path='/join' component={EventJoinPage} ></Route>
                 <Route path='/create' component={CreateRoomPage} ></Route>
                 <Route path='/event/:eventCode' component={Event}></Route>
-<<<<<<< HEAD
-                <Route exact path='/' component={Home} ></Route>
-=======
->>>>>>> origin/master
             </switch>
         </Router>);
     }

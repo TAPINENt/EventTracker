@@ -63,7 +63,7 @@ export default class EventJoinPage extends Component {
     };
     fetch("/host/join-event", requestOptions).then((response) =>{
       if (response.ok){
-          this.props.history.push(`/room/${this.state.eventCode}`);
+          this.props.history.push(`/welcome/${this.state.eventCode}`);
         } else {
           this.setState({ error: "Room not found." });
         }
