@@ -29,8 +29,14 @@ render(){
         </nav>     
             <div className="center">
                 <button type="button" class="btn btn-primary btn-lg"> Guest</button>
-                <button type="button" class="btn btn-primary btn-lg"> Performer</button>
+                <button type="button" class="btn btn-primary btn-lg" to="/"> Performer</button>
             </div>
+
+            {/* <Grid item xs={12} align="center">
+          <Button variant="contained" color="secondary" to="/" component={Link}> 
+            Back
+          </Button>
+        </Grid> */}
 
         
     </html>
