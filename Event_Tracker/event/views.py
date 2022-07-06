@@ -1,3 +1,4 @@
+from cgitb import lookup
 from pickle import FALSE
 from pyexpat.errors import messages
 # from turtle import title
@@ -22,6 +23,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import JsonResponse
 import json
+
+# from Event_Tracker.event import serializers
 
 DEBUG= config('DEBUG') 
 # we write variable name we stored in .env inside quotes
@@ -157,6 +160,21 @@ def event_entree(request, event_code = None):
     #     print(code.event_code_short)
 
     return render(request, "event/event_entree.html", context,)
+
+class GetEvent(APIView):
+    serializer_class = RoomSerializer
+    lookup_url_kwarg = 'event_code_short'
+
+    def get(self, request, format=None):
+        code = request.GET.get(self.lookup_url_kwarg)
+        if code != None:
+            room = Event.objects.filter(event_code_short=code)
+            if len(room) > 0:
+                data = RoomSerializer(room[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({'Event Not Found': 'Invalid Event Code.'}, status=status.HTTP_404_NOT_FOUND)
+            
+        return Response({'Bad Request': 'Code parameter not found in request'}, status=status.HTTP_400_BAD_REQUEST)
 
 class RoomView(generics.ListAPIView):
     queryset = Event.objects.all()
