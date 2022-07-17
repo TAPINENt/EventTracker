@@ -4,23 +4,42 @@ import { Link } from "react-router-dom";
 // import { TextField, Button, Grid, Typography } from "@material-ui/core";
 // import { Link } from "react-router-dom";
 
-
-export default class Home extends Component {
+export default class Welcome extends Component {
     constructor(props) {
       super(props);
+    this.eventCode = this.props.match.params.eventCode;
     }
+    // This would have to go to the next page
+    async componentDidMount(){
+        fetch("/host/get-event/?event_code_short="+this.eventCode)
+            .then((response) => response.json())
+            .then((data) => {
+                this.setState({
+                    location: data.event_location,
+                    org: data.event_org
+                });
+            });
+    }   
 
 
 render(){
+    
     return(
+        
         <Grid container spacing={1} className="center">
             <Grid item xs={12} align="center">
                 <Button variant="contained" color="primary" onClick={this.eventButtonProssed}>
                 Performer
                 </Button>
-                <Button variant="contained" color="secondary" to="/event/927aebef-92ef-4897-8f1f-0daf0f937f62" component={Link}> 
+                <Button variant="contained" color="secondary" to={"/event/" +this.eventCode} component={Link}>
+                {/* <Button variant="contained" color="secondary" to={"/host/get-event/?event_code_short=" +this.eventCode} component={Link}>  */}
                     Guest
                 </Button>
+            </Grid>
+            <Grid item xs={12} align="center">
+            <Typography variant="h4" component="h4">
+            URL Data is: {this.eventCode}
+          </Typography>
             </Grid>
         </Grid>
         
