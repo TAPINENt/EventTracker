@@ -1,10 +1,15 @@
 import React, { Component } from "react";
+import InformationForm from "./pages/Information/informationform";
+import InformationModal from "./pages/Information/InformationModal";
+import axios from "axios";
+import { API_URL } from "..";
 
 
 export default class Home extends Component {
     constructor(props) {
       super(props);
     }
+
     render(){
         return <html>
             <div className="center">
@@ -12,6 +17,8 @@ export default class Home extends Component {
                 <p> Tryin g something else</p>
                 <p> Stanly is a whore</p>
                 <a href="/host/event/home/" > Test </a>
+                <InformationForm/>
+                <InformationModal/>
             </div>
         </html>
     }
