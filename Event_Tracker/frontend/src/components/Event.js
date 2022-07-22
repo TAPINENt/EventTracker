@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {Helmet} from "react-helmet";
+import { LinkPreview } from '@dhaiwat10/react-link-preview';
 
 export default class Event extends Component {
     constructor(props){
@@ -11,16 +13,44 @@ export default class Event extends Component {
         this.eventCode = this.props.match.params.eventCode;
     }
 
+    // getRoomDetails(){
+    //     fetch("get-room"+"?code="+this.eventCode)
+    // }
+    async componentDidMount(){
+        fetch("/host/get-event?event_code_short="+this.eventCode)
+            .then((response) => response.json())
+            .then((data) => {
+                this.setState({
+                    event_name: data.event_name,
+                    location: data.event_location,
+                    org: data.event_org,
+                    start: data.event_start_date,
+                    end: data.event_end_date,
+                    event_bio: data.about_event,
+                    image: data.event_image
+                });
+            });
+    } 
+
+    
+
     render(){
-        return <html lang="en">
-            <a href="/host/event/home/"> Go Back
-            </a>
-             <div className="center">
+        return <div>
             <h3>{this.eventCode}</h3>
-            <p> Event Name; {this.state.eventName}</p>
-            <p> Host; {this.state.hostName}</p>
-            <p> Org; {this.state.eventOrg}</p>
-            </div>
-        </html>
+            <p> Event Name; {this.state.event_name}</p>
+            <p> Org; {this.state.org} </p>
+            <p> Location; {this.state.location} </p>
+            <p> Event start; {this.state.start} </p>
+            <p> Event end; {this.state.end} </p>
+            <p> Event Bio; {this.state.event_bio} </p>
+            <p> Image; {this.state.image} </p>
+            <LinkPreview url='https://www.snapchat.com/add/standeman35' width='400px' />;
+            {/* <a href="https://twitter.com/TwitterDev?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @TwitterDev</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> */}
+            <a class="twitter-timeline" data-width="220" data-height="200" data-theme="dark" href="https://twitter.com/TwitterDev?ref_src=twsrc%5Etfw">Tweets by TwitterDev</a> <Helmet><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></Helmet>
+            <a href="https://msng.link/o/?standeman35=sc">Message me on Snapchat</a>
+            <a href="https://msng.link/o/?alphakings5=tt">Message me on TikTok</a>
+            <a href="https://msng.link/o/?stalanic=ig">Message me on Instagram</a>
+            
+        </div>
     }
 }

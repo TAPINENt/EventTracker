@@ -16,11 +16,11 @@ export default class App extends Component{
         <Router>
             <switch>
                 <Route exact path='/' component={Home} ></Route>
-                <Route path='/welcome' component={Welcome} ></Route>
+                <Route path='/welcome/:eventCode' component={Welcome} ></Route>
                 <Route path='/join' component={EventJoinPage} ></Route>
                 <Route path='/create' component={CreateRoomPage} ></Route>
                 <Route path='/event/:eventCode' component={Event}></Route>
             </switch>
         </Router>);
     }
-}
+}.5
