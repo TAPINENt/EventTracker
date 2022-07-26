@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import InformationForm from "./pages/Information/informationform";
-import InformationModal from "./pages/Information/InformationModal";
+import InformationForm from "./informationform";
+import InformationModal from "./InformationModal";
 import axios from "axios";
 import { API_URL } from "..";
 

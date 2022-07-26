@@ -35,7 +35,7 @@ export default class Event extends Component {
     
 
     render(){
-        return <div>
+        return <div style={{overflow: 'auto'}}>
             <h3>{this.eventCode}</h3>
             <p> Event Name; {this.state.event_name}</p>
             <p> Org; {this.state.org} </p>
