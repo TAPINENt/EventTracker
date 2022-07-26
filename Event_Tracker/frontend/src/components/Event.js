@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import {Helmet} from "react-helmet";
+import Header from "./Header";
 import { LinkPreview } from '@dhaiwat10/react-link-preview';
 
 export default class Event extends Component {
+    state = {img_url : ""}
+    
     constructor(props){
         super(props);
         this.state = {
@@ -27,7 +30,7 @@ export default class Event extends Component {
                     start: data.event_start_date,
                     end: data.event_end_date,
                     event_bio: data.about_event,
-                    image: data.event_image
+                    image: "http://127.0.0.1:8000/"+data.event_image
                 });
             });
     } 
@@ -35,7 +38,11 @@ export default class Event extends Component {
     
 
     render(){
-        return <div style={{overflow: 'auto'}}>
+        return ( 
+        <>
+        <div class="scroll">
+              
+            <Header imgUrl = {this.state.image}  />
             <h3>{this.eventCode}</h3>
             <p> Event Name; {this.state.event_name}</p>
             <p> Org; {this.state.org} </p>
@@ -44,7 +51,7 @@ export default class Event extends Component {
             <p> Event end; {this.state.end} </p>
             <p> Event Bio; {this.state.event_bio} </p>
             <p> Image; {this.state.image} </p>
-            <LinkPreview url='https://www.snapchat.com/add/standeman35' width='400px' />;
+            <LinkPreview url='https://www.instagram.com/stalanic/' width='200px' />;
             {/* <a href="https://twitter.com/TwitterDev?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @TwitterDev</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> */}
             <a class="twitter-timeline" data-width="220" data-height="200" data-theme="dark" href="https://twitter.com/TwitterDev?ref_src=twsrc%5Etfw">Tweets by TwitterDev</a> <Helmet><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></Helmet>
             <a href="https://msng.link/o/?standeman35=sc">Message me on Snapchat</a>
@@ -52,5 +59,7 @@ export default class Event extends Component {
             <a href="https://msng.link/o/?stalanic=ig">Message me on Instagram</a>
             
         </div>
+        </>
+        );
     }
 }
