@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { TextField, Button, Grid, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import InformationModal from "./InformationModal";
+// import InformationModal from "./InformationModal";
 // import { TextField, Button, Grid, Typography } from "@material-ui/core";
 // import { Link } from "react-router-dom";
 
@@ -31,18 +31,19 @@ render(){
             <Grid item xs={12} align="center">
                 <Button variant="contained" color= "primary" onClick={this.eventButtonProssed}>
                         Guest
-                        <InformationModal/>
+                        {/* <InformationModal
+                        placeholder="Enter a Event Code"/> */}
                 </Button>
                 <Button variant="contained" color= "secondary"  component={Link}>
                 {/* <Button variant="contained" color="secondary" to={"/host/get-event/?event_code_short=" +this.eventCode} component={Link}>  */}
                         Performer
-                        <InformationModal/>
+                        {/* <InformationModal/> */}
                 </Button>
             </Grid>
             <Grid item xs={12} align="center">
             <Typography variant="h4" component="h4">
             URL Data is: {this.eventCode}
-            <InformationModal/>
+            {/* <InformationModal/> */}
           </Typography>
             </Grid>
         </Grid>

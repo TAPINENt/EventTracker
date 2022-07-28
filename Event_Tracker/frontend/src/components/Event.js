@@ -40,7 +40,7 @@ export default class Event extends Component {
     render(){
         return ( 
         <>
-        <div class="scroll">
+        <div className="overflow-auto">
               
             <Header imgUrl = {this.state.image}  />
             <h3>{this.eventCode}</h3>
