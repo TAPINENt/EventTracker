@@ -1,77 +1,44 @@
 import React, {Component} from "react";
-import { Button, TextField } from "@material-ui/core";
+import { Box,Button, TextField } from "@material-ui/core";
 import { AppBar } from "@material-ui/core";
 import { Dialog } from "@material-ui/core";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core";
 
 
 
-export class UserPayment extends Component{
-    continue = e => {
-        e.preventDefault();
-        this.props.nextStep();
-    }
-    back = e => {
-        e.preventDefault();
-        this.props.prevStep();
-    }
+function UserPayment({formData, setFormData}) {
+    return (
+        <div className="other-info-container">
+            <Box m={2}>
+            <TextField id="outlined-basic" 
+            label="Cas App" 
+            value={formData.cashApp}
+            onChange={(e) => {
+                setFormData({ ...formData, cashApp: e.target.value });
+              }} 
+            variant="outlined" />
+            </Box>
 
-    render() {
-        const { values, handleChange} = this.props;
-        return(<>
-         {/* <h1> Test </h1> */}
-             <MuiThemeProvider>
-                <>
-                    <Dialog
-                        open
-                        fullWidth
-                        maxWidth="sm"
-                    >
-                        <AppBar title="Enter Your Payment Informtion" />
-                        <TextField
-                            placeholder="Enter your cashApp Name"
-                            label="cashApp Name"
-                            onChange={handleChange('cashApp')}
-                            defaultValue={values.cashApp}
-                            margin="normal"
-                            fullWidth
-                        />
-                        <br />
-                        <TextField
-                            placeholder="Enter your venmo Name"
-                            label="venmo Name"
-                            onChange={handleChange('venmo')}
-                            defaultValue={values.venmo}
-                            margin="normal"
-                            fullWidth
-                        />
-                        <br />
-                        <TextField
-                            placeholder="Enter your payPal"
-                            label="payPal"
-                            onChange={handleChange('payPal')}
-                            defaultValue={values.payPal}
-                            margin="normal"
-                            fullWidth
-                        />
-                        <br />
-                        <Button
-                            color="secondary"
-                            variant="contained"
-                            onClick={this.back}
-                        >Back</Button>
-                        
-                        <Button
-                            color="primary"
-                            variant="contained"
-                            onClick={this.continue}
-                        >Continue</Button>
-                    </Dialog>
-                </>
-            </MuiThemeProvider>
-            </>
-        )
-    }
+            <TextField id="outlined-basic" 
+            label="PayPal" 
+            value={formData.paypal}
+            onChange={(e) => {
+                setFormData({ ...formData, paypal: e.target.value });
+              }} 
+            variant="outlined" /> 
+
+            <Box m={2}>
+            <TextField id="outlined-basic" 
+            label="Venmo" 
+            value={formData.venmo}
+            onChange={(e) => {
+                setFormData({ ...formData, venmo: e.target.value });
+              }} 
+            variant="outlined" />    
+            </Box>                   
+        </div>
+        
+    )
 }
 
 export default UserPayment

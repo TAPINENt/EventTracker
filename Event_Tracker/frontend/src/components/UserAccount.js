@@ -1,69 +1,57 @@
 import React, {Component} from "react";
-import { Button, TextField } from "@material-ui/core";
+import {Box, Button, } from "@material-ui/core";
+import { FaBeer } from 'react-icons/fa';
 import { AppBar } from "@material-ui/core";
 import { Dialog } from "@material-ui/core";
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import TextField from '@mui/joy/TextField';
+import Chip from '@mui/joy/Chip';
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core";
 
 
 
-export class UserAccount extends Component{
-    continue = e => {
-        e.preventDefault();
-        this.props.nextStep();
-    }
+function UserAccount({formData, setFormData}) {
+    return (
+        <div className="other-info-container">
+            <Box m={2}>
+            <TextField id="outlined-basic" 
+            label="Display Name" 
+            startDecorator={<PersonRoundedIcon fontSize="small" />}
+            value={formData.displayName}
+            onChange={(e) => {
+                setFormData({ ...formData, displayName: e.target.value });
+              }}
+            variant="outlined" />
+            </Box>
 
-    render() {
-        const { values, handleChange} = this.props;
-        return(<>
-         {/* <h1> Test </h1> */}
-             <MuiThemeProvider>
-                <>
-                    <Dialog
-                        open
-                        fullWidth
-                        maxWidth="sm"
-                    >
-                        <AppBar title="Enter Your Account Informtion" />
-                        <TextField
-                            placeholder="Enter your First Name"
-                            label="First Name"
-                            onChange={handleChange('firstName')}
-                            defaultValue={values.firstName}
-                            margin="normal"
-                            fullWidth
-                        />
-                        <br />
-                        <TextField
-                            placeholder="Enter your Last Name"
-                            label="Last Name"
-                            onChange={handleChange('lastName')}
-                            defaultValue={values.lastName}
-                            margin="normal"
-                            fullWidth
-                        />
-                        <br />
-                        <TextField
-                            placeholder="Enter your display Name"
-                            label="display Name"
-                            onChange={handleChange('displayName')}
-                            defaultValue={values.displayName}
-                            margin="normal"
-                            fullWidth
-                        />
-                        <br />
-                        <Button
-                            color="primary"
-                            variant="contained"
-                            onClick={this.continue}
-                        >
-                            Continue
-                        </Button>
-                    </Dialog>
-                </>
-            </MuiThemeProvider>
-            </>
-        )
-    }
+            <TextField id="outlined-basic" 
+            label="e-mail" 
+            value={formData.email}
+            onChange={(e) => {
+                setFormData({ ...formData, email: e.target.value });
+              }}
+            variant="outlined" />
+            
+            <Box m={2}>
+            <TextField id="outlined-basic" 
+            label="First Name"
+            value={formData.firstName}
+            onChange={(e) => {
+                setFormData({ ...formData, firstName: e.target.value });
+              }} 
+            variant="outlined" /> 
+            </Box>
+
+            <TextField id="outlined-basic" 
+            label="Last name" 
+            value={formData.lastName}
+            onChange={(e) => {
+                setFormData({ ...formData, lastName: e.target.value });
+              }}
+            variant="outlined" />
+                     
+        </div>
+    );
 }
 
 export default UserAccount
