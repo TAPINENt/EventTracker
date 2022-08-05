@@ -20,6 +20,9 @@ class Event_Users(models.Model):
   user_fname = models.CharField(max_length=30,null=True)
   user_lname = models.CharField(max_length=30,null=True)
   username = models.CharField(max_length=30,null=True)
+  is_event_host = models.BooleanField(default=False)
+  is_event_performer = models.BooleanField(default=False)
+  is_event_guest = models.BooleanField(default=False)
   objects=models.Manager()
 
   def _str_(self):
@@ -36,9 +39,6 @@ class Event_Socials(models.Model):
   email = models.CharField(max_length=30,null=True)
   phone = models.CharField(max_length=10, null=True)
   user_bio = models.TextField(max_length=255,null=True)
-  is_event_host = models.BooleanField(default=False)
-  is_event_performer = models.BooleanField(default=False)
-  is_event_guest = models.BooleanField(default=False)
   objects=models.Manager()
 
 

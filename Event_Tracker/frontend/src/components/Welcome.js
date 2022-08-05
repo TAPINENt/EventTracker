@@ -34,7 +34,7 @@ render(){
                         {/* <InformationModal
                         placeholder="Enter a Event Code"/> */}
                 </Button>
-                <Button variant="contained" color= "secondary"  component={Link}>
+                <Button variant="contained" color= "secondary"  to={"/performer/"+this.eventCode} component={Link}>
                 {/* <Button variant="contained" color="secondary" to={"/host/get-event/?event_code_short=" +this.eventCode} component={Link}>  */}
                         Performer
                         {/* <InformationModal/> */}

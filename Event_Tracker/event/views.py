@@ -11,9 +11,9 @@ from flask import request
 from django.contrib.auth import logout as django_logout
 from django.http import HttpResponseRedirect
 from decouple import config
-from .serializers import TodoSerializer, RoomSerializer
+from .serializers import *
 from rest_framework import viewsets,generics,status      
-from .models import Event, Event_Socials, Event_Users, Event_Host
+from .models import *
 from .models import Todo  
 from .Event_forms import NameForm,SocialForm
 from django.core.files.storage import FileSystemStorage
@@ -22,6 +22,7 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import JsonResponse
+from rest_framework.decorators import api_view
 import json
 
 # from Event_Tracker.event import serializers
@@ -92,7 +93,7 @@ def home_save_form(request):
         username = request.POST.get("username")
         phone = request.POST.get("phone")
         email = request.POST.get("email")
-        event_user=Event_Users(user_fname=user_fname, user_lname=user_lname,username=username)
+        event_user=Event_Users(user_fname=user_fname, user_lname=user_lname,username=username, is_event_host=True)
         event_user.save()
         print("this is evnt users",event_user.pk)
         social_media=Event_Socials(twitter=twitter,Facebook=Facebook,instagram=instagram,user_bio=user_bio,phone=phone,email=email,user_id_id=event_user.pk)
@@ -160,6 +161,114 @@ def event_entree(request, event_code = None):
     #     print(code.event_code_short)
 
     return render(request, "event/event_entree.html", context,)
+
+
+
+@api_view(['GET', 'POST'])
+def users_list(request):
+    if request.method == 'GET':
+        data = Event_Users.objects.all()
+
+        serializer = UsersSerializer(data, context={'request': request}, many=True)
+
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = UsersSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PUT', 'DELETE'])
+def users_detail(request, pk):
+    try:
+        users = Event_Users.objects.get(pk=pk)
+    except Event_Users.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        serializer = UsersSerializer(users, data=request.data,context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        users.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'POST'])
+def socials_list(request):
+    if request.method == 'GET':
+        data = Event_Socials.objects.all()
+
+        serializer = SocialsSerializer(data, context={'request': request}, many=True)
+
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = SocialsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PUT', 'DELETE'])
+def socials_detail(request, pk):
+    try:
+        socials = Event_Socials.objects.get(pk=pk)
+    except Event_Socials.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        serializer = SocialsSerializer(socials, data=request.data,context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        socials.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'POST'])
+def attendee_list(request):
+    if request.method == 'GET':
+        data = Event_Attendee.objects.all()
+
+        serializer = AttendeeSerializer(data, context={'request': request}, many=True)
+
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = AttendeeSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PUT', 'DELETE'])
+def attendee_detail(request, pk):
+    try:
+        attendee = Event_Attendee.objects.get(pk=pk)
+    except Event_Attendee.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        serializer = AttendeeSerializer(attendee, data=request.data,context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        Event_Attendee.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class GetEvent(APIView):
     serializer_class = RoomSerializer

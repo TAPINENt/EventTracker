@@ -41,13 +41,16 @@ function Form(){
         } else if (page === 3){
             return <UserBio formData={formData} setFormData={setFormData}/>;
         } else {
-            return <Confirm/>;
+            return <Confirm formData={formData} setFormData={setFormData}/>;
         }
     }
 
     return(
         <div className="form">
-            <div className="progressbar"></div>
+            <div className="progressbar">
+                <div style={{width: page === 0 ? "20%": page === 1 ? "40%": 
+                page === 2 ? "60%": page === 3 ? "80%": "100%"}}></div>
+            </div>
             <div className="form-container">
                 <div className="header">
                     <h1>{FormTitles[page]}</h1>
@@ -60,9 +63,18 @@ function Form(){
                     Prev</Button>
 
                     <Button variant="contained" color='primary'
-                     disabled = {page == FormTitles.length -1}
-                    onClick={() => {setPage((currPage) => currPage+1)}}>
-                    Next</Button>
+                        onClick={() => {
+                            if (page === FormTitles.length -1){
+                                console.log(formData)
+
+                            }else{
+                            setPage((currPage) => currPage+1)
+                            }
+                        }}
+                    >
+                         
+
+                    {page === FormTitles.length - 1 ? "Submit":"Next"}</Button>
                 
                 </div>
             </div>

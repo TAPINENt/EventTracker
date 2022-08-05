@@ -309,7 +309,7 @@
                 <input type="hidden" id="eventCode" name="eventCode" value="{{ event.event.event_code }} ">
                 <div class="text-right">
                   <button type="button" class="btn btn-primary" onclick="location.href='/host/event_entree/{{ event.event.event_code }}'">Event Code</button>
-                  <button type="button" class="btn btn-success">Enter Event</button>
+                  <button type="button" class="btn btn-success" onclick="location.href='/event/{{ event.event.event_code_short }}'">Enter Event</button>
                 </div>
             </div>
             {% endfor %}
