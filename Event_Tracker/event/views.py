@@ -176,6 +176,7 @@ def users_list(request):
     elif request.method == 'POST':
         serializer = UsersSerializer(data=request.data)
         if serializer.is_valid():
+            print(serializer)
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
 

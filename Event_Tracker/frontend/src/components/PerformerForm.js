@@ -9,6 +9,8 @@ import UserPayment from "./UserPayment";
 import UserSocials from "./UserSocials";
 import UserBio from "./UserBio";
 import Confirm from "./Confirm";
+import axios from "axios";
+import { USERS_API } from "../constants";
 
 
 function Form(){
@@ -66,6 +68,25 @@ function Form(){
                         onClick={() => {
                             if (page === FormTitles.length -1){
                                 console.log(formData)
+                                const postUsers = () => {
+                                    axios
+                                      .post(USERS_API, {
+                                        user_fname: formData.firstName,
+                                        user_lname: formData.lastName,
+                                        username: formData.displayName,
+                                        is_event_host: false,
+                                        is_event_performer: true,
+                                        is_event_guest: false
+                                      })
+                                      .then(response => {
+                                        // console.log(response);
+                                        console.log(response)
+                                      })
+                                      .catch(error => {
+                                        console.error(error);
+                                      });
+                                  };
+                                  postUsers();
 
                             }else{
                             setPage((currPage) => currPage+1)
